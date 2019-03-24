@@ -47,8 +47,8 @@ class TestCore(unittest.TestCase):
     
     def test_advancePos(self):
         self.assertEqual(
-            core.advancePos((1, 2), core.Direction.LOW_L),
-            (2, 1)
+            core.advancePos((1, 2), core.Direction.LOW_L, 2),
+            (3, 0)
         )
 
     def test_isInBoard(self):
