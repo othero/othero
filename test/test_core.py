@@ -84,7 +84,7 @@ class TestCore(unittest.TestCase):
         self.assertFalse(
             id(sog2) == id(TestCore.__sog))
 
-    def test_putDiskAndReverse(self):
+    def test_calcSOGAfterSOSChanged(self):
         sog2 = [ \
             [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK,], \
@@ -92,11 +92,11 @@ class TestCore(unittest.TestCase):
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK] \
         ]
         self.assertEqual(
-            core.putDiskAndReverse(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.DARK),
             sog2
         )
         self.assertEqual(
-            core.putDiskAndReverse(TestCore.__sog, (1, 2), core.SOS.BLANK),
+            core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.BLANK),
             TestCore.__sog
         )
 

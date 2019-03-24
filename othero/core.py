@@ -228,13 +228,13 @@ def duplicateSOG(sog):
     """
     return [[sos for sos in row] for row in sog]
     
-def putDiskAndReverse(sog, pos, sos):
+def calcSOGAfterSOSChanged(sog, pos, sos):
     """
     Put a <sos>'s disk on the <pos> and change the all <sog> around <pos>.
 
     Args: 
         sog [[othero.core.SOS]]:
-            State of the game.
+            State of the game.:w
 
         pos (int, int):
             Position where the sos changes.
