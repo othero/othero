@@ -143,6 +143,27 @@ def calcAllSIDs(sog, pos, sos):
     return sids
 
 def advancePos(pos, direction, nsteps=1):
+    """
+    Advance pos in the <direction> by <nsteps> steps, and
+    return a new position.
+
+    Args: 
+        pos (int, int):
+            Position in a board.
+
+            The int values represent row and collumn number
+            respectively. They begin from 0.
+        
+        direction othero.core.Direction:
+            Direction in which pos advances.
+
+        nsteps int = 1:
+            Number of steps by which <pos> advances.
+
+    Returns:
+        (int, int):
+            New position in a board after advance.
+    """
     step = __posSteps[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
 
