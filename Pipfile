@@ -6,7 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pydoc = "*"
 
 [requires]
 python_version = "3.6"
