@@ -90,11 +90,9 @@ def calcSID(sog, pos, sos, direction):
         int:
             State in the direction of <direction>.
     """
-    pos = [pos[0], pos[1]]
     sid = 0
     while True:
-        pos[0] = pos[0] + steps[direction][0]
-        pos[1] = pos[1] + steps[direction][1]
+        pos = advancePos(pos, direction)
 
         if not isInBoard(pos):
             sid = 0
@@ -144,6 +142,10 @@ def calcAllSIDs(sog, pos, sos):
     for d in list(Direction):
         sids[d] = calcSID(sog, pos, sos, d)
     return sids
+
+def advancePos(pos, direction, nsteps=1):
+    step = steps[direction]
+    return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
 
 def isInBoard(pos):
     """
@@ -229,10 +231,8 @@ def putDiskAndReverse(sog, pos, sos):
     sids = calcAllSIDs(new_sog, pos, sos)
     new_sog[pos[0]][pos[1]] = sos
     for direction, sid in sids.items():
-        step = steps[direction]
         for i in range(sid):
-            row = pos[0] + step[0] * (i+1)
-            col = pos[1] + step[1] * (i+1)
+            row, col = advancePos(pos, direction, i+1)
             new_sog[row][col] = sos
     return new_sog
 
