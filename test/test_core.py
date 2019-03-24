@@ -44,6 +44,12 @@ class TestCore(unittest.TestCase):
             core.calcAllSIDs(TestCore.__sog, (1, 2), core.SOS.DARK),
             expect
         )
+    
+    def test_advancePos(self):
+        self.assertEqual(
+            core.advancePos((1, 2), core.Direction.LOW_L),
+            (2, 1)
+        )
 
     def test_isInBoard(self):
         self.assertEqual(
