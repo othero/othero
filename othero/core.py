@@ -230,7 +230,8 @@ def duplicateSOG(sog):
     
 def calcSOGAfterSOSChanged(sog, pos, sos):
     """
-    Put a <sos>'s disk on the <pos> and change the all <sog> around <pos>.
+    Change sos at the <pos> to <sos> and calculate the resulting sog
+    according to the osero rule.
 
     Args: 
         sog [[othero.core.SOS]]:
@@ -247,8 +248,7 @@ def calcSOGAfterSOSChanged(sog, pos, sos):
 
     Returns:
         sog [[othero.core.SOS]]:
-            Return the new state of the game after putDiskAndChange method.
-
+            Return the new state of the game after calcSOGAfterSOSChanged method.
     """
     new_sog = duplicateSOG(sog)
     sids = calcAllSIDs(new_sog, pos, sos)
