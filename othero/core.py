@@ -33,6 +33,28 @@ SID:
         n: n disks will be reversed
 """
 
+class Disk(enum.Enum):
+    DARK  = enum.auto()
+    LIGHT = enum.auto()
+
+    @staticmethod
+    def toSOS(disk):
+        """
+        Convert Disk into SOS.
+
+        Args:
+            disk othero.core.Disk:
+                Disk to be converted.
+        
+        Returns:
+            othero.core.SOS:
+                Resulting SOS from <disk>.
+        """
+        if disk == Disk.DARK:
+            return SOS.DARK 
+        else:
+            return SOS.LIGHT
+
 class SOS(enum.IntEnum):
     """
     State of squares(SOS)
@@ -265,7 +287,7 @@ def countSOSs(sog):
 
     Args:
         sog [[othero.core.SOS]]:
-            State of the game to be copied.
+            State of the game.
     
     Returns:
         int:
