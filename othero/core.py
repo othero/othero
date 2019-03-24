@@ -259,6 +259,35 @@ def calcSOGAfterSOSChanged(sog, pos, sos):
             new_sog[row][col] = sos
     return new_sog
 
+def countSOSs(sog):
+    """
+    Count the number of each sos in the <sog>.
+
+    Args:
+        sog [[othero.core.SOS]]:
+            State of the game to be copied.
+    
+    Returns:
+        int:
+            The number of othero.core.SOS.DARK in <sog>.
+
+        int:
+            The number of othero.core.SOS.LIGHT in <sog>.
+
+        int:
+            The number of othero.core.SOS.BLANK in <sog>.
+    """
+    ndark, nlight, nblank = 0, 0, 0
+    for row in sog:
+        for sos in row:
+            if sos == SOS.DARK:
+                ndark = ndark + 1
+            elif sos == SOS.LIGHT:
+                nlight = nlight + 1
+            else:
+                nblank = nblank + 1
+    return ndark, nlight, nblank
+
 def SOGToString(sog):
     """
     Convert state of a game into string.
