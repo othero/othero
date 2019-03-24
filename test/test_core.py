@@ -100,6 +100,12 @@ class TestCore(unittest.TestCase):
             TestCore.__sog
         )
 
+    def test_countSOSs(self):
+        self.assertEqual(
+            core.countSOSs(TestCore.__sog),
+            (7, 3, 6)
+        )
+
     def test_SOGToString(self):
         self.assertEqual(
             core.SOGToString(TestCore.__sog),
