@@ -90,6 +90,9 @@ def calcSID(sog, pos, sos, direction):
         int:
             State in the direction of <direction>.
     """
+    if sos == SOS.BLANK:
+        return 0
+
     sid = 0
     while True:
         pos = advancePos(pos, direction)
