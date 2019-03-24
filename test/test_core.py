@@ -118,5 +118,12 @@ class TestCore(unittest.TestCase):
             TestCore.__sog
         )
 
+class TestCoreDisk(unittest.TestCase):
+    def test_toSOS(self):
+        self.assertEqual(
+            core.Disk.toSOS(core.Disk.DARK),
+            core.SOS.DARK
+        )
+
 if __name__ == "__main__":
     unittest.main()
