@@ -1,12 +1,9 @@
 # coding: utf-8
 
 # Copyright (C) 2019 Tanaka Tatsuya and contributors
-
-# This module is part of GitPython and is released under
-# the BSD License: http://www.opensource.org/licenses/bsd-license.php
-
-# This source code is licensed under the Apache License, Version 2.0 found in
-# the LICENSE.txt file in the root directory of this source tree.
+#
+# This source code is licensed under the MIT License found in
+# the LICENSE file in the root directory of this source tree.
 
 __version__ = "0.00"
 __date__    = "23 Mar 2019"
