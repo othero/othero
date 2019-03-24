@@ -235,7 +235,7 @@ def calcSOGAfterSOSChanged(sog, pos, sos):
 
     Args: 
         sog [[othero.core.SOS]]:
-            State of the game.:w
+            State of the game.
 
         pos (int, int):
             Position where the sos changes.
