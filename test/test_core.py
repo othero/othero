@@ -28,6 +28,10 @@ class TestCore(unittest.TestCase):
             core.calcSID(TestCore.__sog, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
             1
         )
+        self.assertEqual(
+            core.calcSID(TestCore.__sog, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
+            0
+        )
 
     def test_calcAllSIDs(self):
         expect = {
@@ -90,6 +94,10 @@ class TestCore(unittest.TestCase):
         self.assertEqual(
             core.putDiskAndReverse(TestCore.__sog, (1, 2), core.SOS.DARK),
             sog2
+        )
+        self.assertEqual(
+            core.putDiskAndReverse(TestCore.__sog, (1, 2), core.SOS.BLANK),
+            TestCore.__sog
         )
 
     def test_SOGToString(self):
