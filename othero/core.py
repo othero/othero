@@ -128,7 +128,6 @@ def calcAllSIDs(sog, pos, sos):
         sos othero.core.SOS:
             Sos which the square is to be in.
 
-
     Returns:
         {othero.core.Direction: int}:
             State in each direction.
