@@ -55,7 +55,7 @@ class Direction(enum.Flag):
     LOW_L = LOW|LEFT
 
 # This variable means amount of change 'xy-coordinate' by one step.
-steps = {
+__posSteps = {
     Direction.UP   : (-1,  0),
     Direction.UP_R : (-1,  1),
     Direction.RIGHT: ( 0,  1),
@@ -144,7 +144,7 @@ def calcAllSIDs(sog, pos, sos):
     return sids
 
 def advancePos(pos, direction, nsteps=1):
-    step = steps[direction]
+    step = __posSteps[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
 
 def isInBoard(pos):
