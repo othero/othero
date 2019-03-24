@@ -3,7 +3,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.base import core
+from othero import core
 
 if __name__ == "__main__":
     pass
