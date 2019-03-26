@@ -23,11 +23,13 @@ class TestCore(unittest.TestCase):
         "1,-1,0,0," + \
         "1,1,1,0"
 
-    def test_calcSID(self):
+    def test_calcSID1(self):
         self.assertEqual(
             core.calcSID(TestCore.__sog, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
             1
         )
+
+    def test_calcSID2(self):
         self.assertEqual(
             core.calcSID(TestCore.__sog, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
             0
@@ -55,21 +57,25 @@ class TestCore(unittest.TestCase):
             (3, 0)
         )
 
-    def test_isInBoard(self):
+    def test_isInBoard1(self):
         self.assertEqual(
             core.isInBoard((1, 2)),
             True
         )
+
+    def test_isInBoard2(self):
         self.assertEqual(
             core.isInBoard((4, 0)),
             False
         )
     
-    def test_isSOSChangeValid(self):
+    def test_isSOSChangeValid1(self):
         self.assertEqual(
             core.isSOSChangeValid(TestCore.__sog, (1, 2), core.SOS.DARK),
             True
         )
+
+    def test_isSOSChangeValid2(self):
         self.assertEqual(
             core.isSOSChangeValid(TestCore.__sog, (0, 1), core.SOS.LIGHT),
             False
@@ -84,7 +90,7 @@ class TestCore(unittest.TestCase):
         self.assertFalse(
             id(sog2) == id(TestCore.__sog))
 
-    def test_calcSOGAfterSOSChanged(self):
+    def test_calcSOGAfterSOSChanged1(self):
         sog2 = [ \
             [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK,], \
@@ -95,6 +101,8 @@ class TestCore(unittest.TestCase):
             core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.DARK),
             sog2
         )
+
+    def test_calcSOGAfterSOSChanged2(self):
         self.assertEqual(
             core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.BLANK),
             TestCore.__sog
