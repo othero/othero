@@ -37,7 +37,7 @@ jobs:
       
       - run:
           name: run tests
-          command: ':'
+          command: pipenv run python test/test_core.py
 
 workflows:
   version: 2
