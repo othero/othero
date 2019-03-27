@@ -37,7 +37,10 @@ jobs:
       
       - run:
           name: run tests
-          command: pipenv run python test/test_core.py
+          command: |
+            pipenv run python test/test_core.py
+            pipenv run python test/display/test_utils.py
+            pipenv run python test/display/test_stdout.py
 
 workflows:
   version: 2
