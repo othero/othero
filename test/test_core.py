@@ -113,6 +113,12 @@ class TestCore(unittest.TestCase):
             core.countSOSs(TestCore.__sog),
             (7, 3, 6)
         )
+    
+    def test_get_positions_in_sos(self):
+        self.assertEqual(
+            core.get_positions_in_sos(self.__sog, core.SOS.BLANK),
+            [(0, 0), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
+        )
 
     def test_SOGToString(self):
         self.assertEqual(
