@@ -41,6 +41,8 @@ jobs:
             pipenv run python test/test_core.py
             pipenv run python test/display/test_utils.py
             pipenv run python test/display/test_stdout.py
+            pipenv run python test/game/test_utils.py
+            pipenv run python test/game/test_p2p.py
 
 workflows:
   version: 2
