@@ -310,6 +310,28 @@ def countSOSs(sog):
                 nblank = nblank + 1
     return ndark, nlight, nblank
 
+def get_positions_in_sos(sog, sos):
+    """
+    Return a list of positions in <sog> where sos is <sos>.
+
+    Args:
+        sog [[othero.core.SOS]]:
+            Sog to be searched in. 
+        
+        sos othero.core.SOS:
+            Sos to be searched for.
+    
+    Returns:
+        [(int, int)]:
+            List of positions in <sog> where sos is <sos>.
+    """
+    poss = []
+    for i in range(len(sog)):
+        for j in range(len(sog[i])):
+            if sog[i][j] == sos:
+                poss.append((i, j))
+    return poss
+
 def SOGToString(sog):
     """
     Convert state of a game into string.
