@@ -10,7 +10,7 @@ import unittest
 from othero.display import utils
 from othero import core
 
-class TestDisplayStdout(unittest.TestCase):
+class TestDisplayUtils(unittest.TestCase):
     __SOG = [ \
         [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
         [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
@@ -23,7 +23,7 @@ class TestDisplayStdout(unittest.TestCase):
         ['x', 'o', ' ', ' ',], \
         ['x', 'x', 'x', ' ']   \
     ]
-    
+
     def test_visualize_sos1(self):
         self.assertEqual(
             utils.visualize_sos(core.SOS.DARK),
@@ -41,12 +41,12 @@ class TestDisplayStdout(unittest.TestCase):
             utils.visualize_sos(core.SOS.BLANK),
             ' '
         )
-    
+
     def test_visualize_sog(self):
         self.assertEqual(
             utils.visualize_sog(self.__SOG),
-            self.__VSOG               
+            self.__VSOG
         )
-    
+
 if __name__ == "__main__":
     unittest.main()
