@@ -232,7 +232,7 @@ def isSOSChangeValid(sog, pos, sos):
     
     Returns:
         bool:
-            Resulting sos from <s>.
+            Validity of changing <sos>.
     """
     return any(map(bool, calcAllSIDs(sog, pos, sos).values())) 
 
