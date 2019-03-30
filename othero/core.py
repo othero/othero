@@ -77,7 +77,7 @@ class Direction(enum.Flag):
     LOW_L = LOW|LEFT
 
 # This variable means amount of change 'xy-coordinate' by one step.
-__posSteps = {
+__POS_STEPS = {
     Direction.UP   : (-1,  0),
     Direction.UP_R : (-1,  1),
     Direction.RIGHT: ( 0,  1),
@@ -189,7 +189,7 @@ def advancePos(pos, direction, nsteps=1):
         (int, int):
             New position in a board after advance.
     """
-    step = __posSteps[direction]
+    step = __POS_STEPS[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
 
 def isInBoard(pos):
