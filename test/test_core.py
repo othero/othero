@@ -25,13 +25,13 @@ class TestCore(unittest.TestCase):
 
     def test_calc_sid1(self):
         self.assertEqual(
-            core.calc_sid(TestCore.__SOG, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
+            core.calc_sid(self.__SOG, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
             1
         )
 
     def test_calc_sid2(self):
         self.assertEqual(
-            core.calc_sid(TestCore.__SOG, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
+            core.calc_sid(self.__SOG, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
             0
         )
 
@@ -47,7 +47,7 @@ class TestCore(unittest.TestCase):
             core.Direction.UP_L: 0
         }
         self.assertEqual(
-            core.calc_all_sids(TestCore.__SOG, (1, 2), core.SOS.DARK),
+            core.calc_all_sids(self.__SOG, (1, 2), core.SOS.DARK),
             expect
         )
     
@@ -71,24 +71,24 @@ class TestCore(unittest.TestCase):
     
     def test_is_sos_change_valid1(self):
         self.assertEqual(
-            core.is_sos_change_valid(TestCore.__SOG, (1, 2), core.SOS.DARK),
+            core.is_sos_change_valid(self.__SOG, (1, 2), core.SOS.DARK),
             True
         )
 
     def test_is_sos_change_valid2(self):
         self.assertEqual(
-            core.is_sos_change_valid(TestCore.__SOG, (0, 1), core.SOS.LIGHT),
+            core.is_sos_change_valid(self.__SOG, (0, 1), core.SOS.LIGHT),
             False
         )
     
     def test_duplicate_sog(self):
-        sog2 = core.duplicate_sog(TestCore.__SOG)
+        sog2 = core.duplicate_sog(self.__SOG)
         self.assertEqual(
             sog2,
-            TestCore.__SOG
+            self.__SOG
         )
         self.assertFalse(
-            id(sog2) == id(TestCore.__SOG))
+            id(sog2) == id(self.__SOG))
 
     def test_calc_sog_after_sos_changed1(self):
         sog2 = [ \
@@ -98,19 +98,19 @@ class TestCore(unittest.TestCase):
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK] \
         ]
         self.assertEqual(
-            core.calc_sog_after_sos_changed(TestCore.__SOG, (1, 2), core.SOS.DARK),
+            core.calc_sog_after_sos_changed(self.__SOG, (1, 2), core.SOS.DARK),
             sog2
         )
 
     def test_calc_sog_after_sos_changed2(self):
         self.assertEqual(
-            core.calc_sog_after_sos_changed(TestCore.__SOG, (1, 2), core.SOS.BLANK),
-            TestCore.__SOG
+            core.calc_sog_after_sos_changed(self.__SOG, (1, 2), core.SOS.BLANK),
+            self.__SOG
         )
 
     def test_count_soss(self):
         self.assertEqual(
-            core.count_soss(TestCore.__SOG),
+            core.count_soss(self.__SOG),
             (7, 3, 6)
         )
     
@@ -122,14 +122,14 @@ class TestCore(unittest.TestCase):
 
     def test_sog_to_string(self):
         self.assertEqual(
-            core.sog_to_string(TestCore.__SOG),
-            TestCore.__SOG_STR
+            core.sog_to_string(self.__SOG),
+            self.__SOG_STR
         )
 
     def test_string_to_sog(self):
         self.assertEqual(
-            core.string_to_sog(TestCore.__SOG_STR),
-            TestCore.__SOG
+            core.string_to_sog(self.__SOG_STR),
+            self.__SOG
         )
 
 class TestCoreDisk(unittest.TestCase):
