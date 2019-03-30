@@ -10,14 +10,14 @@ import unittest
 from othero import core
 
 class TestCore(unittest.TestCase):
-    __sog = [ \
+    __SOG = [ \
         [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
         [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
         [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
         [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK] \
     ]
 
-    __sog_str = \
+    __SOG_STR = \
         "0,1,-1,1," + \
         "1,-1,0,0," + \
         "1,-1,0,0," + \
@@ -25,13 +25,13 @@ class TestCore(unittest.TestCase):
 
     def test_calc_sid1(self):
         self.assertEqual(
-            core.calc_sid(TestCore.__sog, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
+            core.calc_sid(TestCore.__SOG, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
             1
         )
 
     def test_calc_sid2(self):
         self.assertEqual(
-            core.calc_sid(TestCore.__sog, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
+            core.calc_sid(TestCore.__SOG, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
             0
         )
 
@@ -47,7 +47,7 @@ class TestCore(unittest.TestCase):
             core.Direction.UP_L: 0
         }
         self.assertEqual(
-            core.calc_all_sids(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.calc_all_sids(TestCore.__SOG, (1, 2), core.SOS.DARK),
             expect
         )
     
@@ -71,24 +71,24 @@ class TestCore(unittest.TestCase):
     
     def test_is_sos_change_valid1(self):
         self.assertEqual(
-            core.is_sos_change_valid(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.is_sos_change_valid(TestCore.__SOG, (1, 2), core.SOS.DARK),
             True
         )
 
     def test_is_sos_change_valid2(self):
         self.assertEqual(
-            core.is_sos_change_valid(TestCore.__sog, (0, 1), core.SOS.LIGHT),
+            core.is_sos_change_valid(TestCore.__SOG, (0, 1), core.SOS.LIGHT),
             False
         )
     
     def test_duplicate_sog(self):
-        sog2 = core.duplicate_sog(TestCore.__sog)
+        sog2 = core.duplicate_sog(TestCore.__SOG)
         self.assertEqual(
             sog2,
-            TestCore.__sog
+            TestCore.__SOG
         )
         self.assertFalse(
-            id(sog2) == id(TestCore.__sog))
+            id(sog2) == id(TestCore.__SOG))
 
     def test_calc_sog_after_sos_changed1(self):
         sog2 = [ \
@@ -98,38 +98,38 @@ class TestCore(unittest.TestCase):
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK] \
         ]
         self.assertEqual(
-            core.calc_sog_after_sos_changed(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.calc_sog_after_sos_changed(TestCore.__SOG, (1, 2), core.SOS.DARK),
             sog2
         )
 
     def test_calc_sog_after_sos_changed2(self):
         self.assertEqual(
-            core.calc_sog_after_sos_changed(TestCore.__sog, (1, 2), core.SOS.BLANK),
-            TestCore.__sog
+            core.calc_sog_after_sos_changed(TestCore.__SOG, (1, 2), core.SOS.BLANK),
+            TestCore.__SOG
         )
 
     def test_count_soss(self):
         self.assertEqual(
-            core.count_soss(TestCore.__sog),
+            core.count_soss(TestCore.__SOG),
             (7, 3, 6)
         )
     
     def test_get_positions_in_sos(self):
         self.assertEqual(
-            core.get_positions_in_sos(self.__sog, core.SOS.BLANK),
+            core.get_positions_in_sos(self.__SOG, core.SOS.BLANK),
             [(0, 0), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
         )
 
     def test_sog_to_string(self):
         self.assertEqual(
-            core.sog_to_string(TestCore.__sog),
-            TestCore.__sog_str
+            core.sog_to_string(TestCore.__SOG),
+            TestCore.__SOG_STR
         )
 
     def test_string_to_sog(self):
         self.assertEqual(
-            core.string_to_sog(TestCore.__sog_str),
-            TestCore.__sog
+            core.string_to_sog(TestCore.__SOG_STR),
+            TestCore.__SOG
         )
 
 class TestCoreDisk(unittest.TestCase):
