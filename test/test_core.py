@@ -23,19 +23,19 @@ class TestCore(unittest.TestCase):
         "1,-1,0,0," + \
         "1,1,1,0"
 
-    def test_calcSID1(self):
+    def test_calc_sid1(self):
         self.assertEqual(
-            core.calcSID(TestCore.__sog, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
+            core.calc_sid(TestCore.__sog, (1, 2), core.SOS.DARK, core.Direction.LOW_L),
             1
         )
 
-    def test_calcSID2(self):
+    def test_calc_sid2(self):
         self.assertEqual(
-            core.calcSID(TestCore.__sog, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
+            core.calc_sid(TestCore.__sog, (1, 2), core.SOS.BLANK, core.Direction.LOW_L),
             0
         )
 
-    def test_calcAllSIDs(self):
+    def test_calc_all_sids(self):
         expect = {
             core.Direction.UP: 0,
             core.Direction.UP_R: 0,
@@ -47,42 +47,42 @@ class TestCore(unittest.TestCase):
             core.Direction.UP_L: 0
         }
         self.assertEqual(
-            core.calcAllSIDs(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.calc_all_sids(TestCore.__sog, (1, 2), core.SOS.DARK),
             expect
         )
     
-    def test_advancePos(self):
+    def test_advance_pos(self):
         self.assertEqual(
-            core.advancePos((1, 2), core.Direction.LOW_L, 2),
+            core.advance_pos((1, 2), core.Direction.LOW_L, 2),
             (3, 0)
         )
 
-    def test_isInBoard1(self):
+    def test_is_in_board1(self):
         self.assertEqual(
-            core.isInBoard((1, 2)),
+            core.is_in_board((1, 2)),
             True
         )
 
-    def test_isInBoard2(self):
+    def test_is_in_board2(self):
         self.assertEqual(
-            core.isInBoard((4, 0)),
+            core.is_in_board((4, 0)),
             False
         )
     
-    def test_isSOSChangeValid1(self):
+    def test_is_sos_change_valid1(self):
         self.assertEqual(
-            core.isSOSChangeValid(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.is_sos_change_valid(TestCore.__sog, (1, 2), core.SOS.DARK),
             True
         )
 
-    def test_isSOSChangeValid2(self):
+    def test_is_sos_change_valid2(self):
         self.assertEqual(
-            core.isSOSChangeValid(TestCore.__sog, (0, 1), core.SOS.LIGHT),
+            core.is_sos_change_valid(TestCore.__sog, (0, 1), core.SOS.LIGHT),
             False
         )
     
-    def test_duplicateSOG(self):
-        sog2 = core.duplicateSOG(TestCore.__sog)
+    def test_duplicate_sog(self):
+        sog2 = core.duplicate_sog(TestCore.__sog)
         self.assertEqual(
             sog2,
             TestCore.__sog
@@ -90,7 +90,7 @@ class TestCore(unittest.TestCase):
         self.assertFalse(
             id(sog2) == id(TestCore.__sog))
 
-    def test_calcSOGAfterSOSChanged1(self):
+    def test_calc_sog_after_sos_changed1(self):
         sog2 = [ \
             [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK,], \
@@ -98,19 +98,19 @@ class TestCore(unittest.TestCase):
             [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK] \
         ]
         self.assertEqual(
-            core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.DARK),
+            core.calc_sog_after_sos_changed(TestCore.__sog, (1, 2), core.SOS.DARK),
             sog2
         )
 
-    def test_calcSOGAfterSOSChanged2(self):
+    def test_calc_sog_after_sos_changed2(self):
         self.assertEqual(
-            core.calcSOGAfterSOSChanged(TestCore.__sog, (1, 2), core.SOS.BLANK),
+            core.calc_sog_after_sos_changed(TestCore.__sog, (1, 2), core.SOS.BLANK),
             TestCore.__sog
         )
 
-    def test_countSOSs(self):
+    def test_count_soss(self):
         self.assertEqual(
-            core.countSOSs(TestCore.__sog),
+            core.count_soss(TestCore.__sog),
             (7, 3, 6)
         )
     
@@ -120,15 +120,15 @@ class TestCore(unittest.TestCase):
             [(0, 0), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
         )
 
-    def test_SOGToString(self):
+    def test_sog_to_string(self):
         self.assertEqual(
-            core.SOGToString(TestCore.__sog),
+            core.sog_to_string(TestCore.__sog),
             TestCore.__sog_str
         )
 
-    def test_stringToSOG(self):
+    def test_string_to_sog(self):
         self.assertEqual(
-            core.stringToSOG(TestCore.__sog_str),
+            core.string_to_sog(TestCore.__sog_str),
             TestCore.__sog
         )
 
