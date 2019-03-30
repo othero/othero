@@ -88,7 +88,7 @@ __POS_STEPS = {
     Direction.UP_L : (-1, -1)
 }
 
-def calcSID(sog, pos, sos, direction):
+def calc_sid(sog, pos, sos, direction):
     """
     Calculate SID in the direction specified by <direction>.
 
@@ -117,9 +117,9 @@ def calcSID(sog, pos, sos, direction):
 
     sid = 0
     while True:
-        pos = advancePos(pos, direction)
+        pos = advance_pos(pos, direction)
 
-        if not isInBoard(pos):
+        if not is_in_board(pos):
             sid = 0
             break
             
@@ -134,7 +134,7 @@ def calcSID(sog, pos, sos, direction):
 
     return sid
 
-def calcAllSIDs(sog, pos, sos):
+def calc_all_sids(sog, pos, sos):
     """
     Returns a map of 8 numbers representing SID in each direction.
     SID in a direction can be accessed with the corresponding direction
@@ -164,10 +164,10 @@ def calcAllSIDs(sog, pos, sos):
     """
     sids = {}
     for d in list(Direction):
-        sids[d] = calcSID(sog, pos, sos, d)
+        sids[d] = calc_sid(sog, pos, sos, d)
     return sids
 
-def advancePos(pos, direction, nsteps=1):
+def advance_pos(pos, direction, nsteps=1):
     """
     Advance pos in the <direction> by <nsteps> steps, and
     return a new position.
@@ -192,7 +192,7 @@ def advancePos(pos, direction, nsteps=1):
     step = __POS_STEPS[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
 
-def isInBoard(pos):
+def is_in_board(pos):
     """
     Check whether the position indicated by <pos> is within
     the board of a game.
@@ -213,7 +213,7 @@ def isInBoard(pos):
     return pos[0] >= 0 and pos[0] < 4 and \
            pos[1] >= 0 and pos[1] < 4
 
-def isSOSChangeValid(sog, pos, sos):
+def is_sos_change_valid(sog, pos, sos):
     """
     Checks whether the sos change is allowed by osero rule.
 
@@ -234,9 +234,9 @@ def isSOSChangeValid(sog, pos, sos):
         bool:
             Validity of changing <sos>.
     """
-    return any(map(bool, calcAllSIDs(sog, pos, sos).values())) 
+    return any(map(bool, calc_all_sids(sog, pos, sos).values())) 
 
-def duplicateSOG(sog):
+def duplicate_sog(sog):
     """
     Make a full copy (ie. deep copy) of <sog>.
 
@@ -250,7 +250,7 @@ def duplicateSOG(sog):
     """
     return [[sos for sos in row] for row in sog]
     
-def calcSOGAfterSOSChanged(sog, pos, sos):
+def calc_sog_after_sos_changed(sog, pos, sos):
     """
     Change sos at the <pos> to <sos> and calculate the resulting sog
     according to the osero rule.
@@ -270,18 +270,18 @@ def calcSOGAfterSOSChanged(sog, pos, sos):
 
     Returns:
         sog [[othero.core.SOS]]:
-            Return the new state of the game after calcSOGAfterSOSChanged method.
+            Return the new state of the game after calcsog_after_sos_changed method.
     """
-    new_sog = duplicateSOG(sog)
-    sids = calcAllSIDs(new_sog, pos, sos)
+    new_sog = duplicate_sog(sog)
+    sids = calc_all_sids(new_sog, pos, sos)
     new_sog[pos[0]][pos[1]] = sos
     for direction, sid in sids.items():
         for i in range(sid):
-            row, col = advancePos(pos, direction, i+1)
+            row, col = advance_pos(pos, direction, i+1)
             new_sog[row][col] = sos
     return new_sog
 
-def countSOSs(sog):
+def count_soss(sog):
     """
     Count the number of each sos in the <sog>.
 
@@ -332,7 +332,7 @@ def get_positions_in_sos(sog, sos):
                 poss.append((i, j))
     return poss
 
-def SOGToString(sog):
+def sog_to_string(sog):
     """
     Convert state of a game into string.
 
@@ -353,7 +353,7 @@ def SOGToString(sog):
         s = s + "," + str(p)
     return s[1:]
 
-def stringToSOG(s):
+def string_to_sog(s):
     """
     Convert string to state of a game.
 

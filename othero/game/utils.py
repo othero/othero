@@ -69,7 +69,7 @@ class Game():
         return len(avail_poss) != 0
 
     def countDisks(self):
-        ndark, nlight, _ = core.countSOSs(self.sog)
+        ndark, nlight, _ = core.count_soss(self.sog)
         return ndark, nlight
 
 def create_sog():
@@ -80,7 +80,7 @@ def create_sog():
         [[othero.core.SOS]]:
             The newly created sog in the initial state.
     """
-    return core.duplicateSOG(INIT_SOG)
+    return core.duplicate_sog(INIT_SOG)
 
 def is_put_disk_valid(sog, pos, disk):
     """
@@ -104,7 +104,7 @@ def is_put_disk_valid(sog, pos, disk):
         bool:
             The validity of putting <disk>.
     """
-    return core.isSOSChangeValid(sog, pos, core.Disk.toSOS(disk))
+    return core.is_sos_change_valid(sog, pos, core.Disk.toSOS(disk))
 
 def calc_sog_after_put_disk(sog, pos, disk):
     """
@@ -137,7 +137,7 @@ def calc_sog_after_put_disk(sog, pos, disk):
     if not is_put_disk_valid(sog, pos, disk):
         raise InvalidDiskPositionError(sog, pos, disk)
 
-    return core.calcSOGAfterSOSChanged(sog, pos, core.Disk.toSOS(disk))
+    return core.calc_sog_after_sos_changed(sog, pos, core.Disk.toSOS(disk))
 
 def get_available_positions(sog, disk):
     """
@@ -158,4 +158,4 @@ def get_available_positions(sog, disk):
 
     blank_poss = core.get_positions_in_sos(sog, core.SOS.BLANK)
     return [pos for pos in blank_poss \
-                if core.isSOSChangeValid(sog, pos, sos)]
+                if core.is_sos_change_valid(sog, pos, sos)]
