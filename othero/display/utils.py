@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import types
+from othero.core import libtypes
 
 def visualize_sos(sos):
     """
@@ -24,9 +24,9 @@ def visualize_sos(sos):
         str:
             Resulting str from <sos>.            
     """
-    if sos == types.SOS.DARK:
+    if sos == libtypes.SOS.DARK:
         return 'x'
-    elif sos == types.SOS.LIGHT:
+    elif sos == libtypes.SOS.LIGHT:
         return 'o'
     else:
         return ' '

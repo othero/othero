@@ -5,8 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero import core
-from othero.core import types, pos
+from othero.core import libtypes, libpos
 
 """ NOTE
 SID:
@@ -44,19 +43,19 @@ def calc_sid(sog, pos, sos, direction):
         int:
             State in the direction of <direction>.
     """
-    if sos == types.SOS.BLANK:
+    if sos == libtypes.SOS.BLANK:
         return 0
 
     sid = 0
     while True:
-        pos = core.pos.advance_pos(pos, direction)
+        pos = libpos.advance_pos(pos, direction)
 
-        if not core.pos.is_in_board(pos):
+        if not libpos.is_in_board(pos):
             sid = 0
             break
             
         s = sog[pos[0]][pos[1]]
-        if s == types.SOS.BLANK:
+        if s == libtypes.SOS.BLANK:
             sid = 0
             break
         elif s == sos:
@@ -95,6 +94,6 @@ def calc_all_sids(sog, pos, sos):
             print("Two disks are reversed in the right of the new disk")
     """
     sids = {}
-    for d in list(types.Direction):
+    for d in list(libtypes.Direction):
         sids[d] = calc_sid(sog, pos, sos, d)
     return sids

@@ -6,11 +6,11 @@
 # the LICENSE file in the root directory of this source tree.
 
 import unittest
-from othero.core import types
+from othero.core import libtypes
 
 class TestCoreTypesDisk(unittest.TestCase):
     def test_toSOS(self):
         self.assertEqual(
-            types.Disk.toSOS(types.Disk.DARK),
-            types.SOS.DARK
+            libtypes.Disk.toSOS(libtypes.Disk.DARK),
+            libtypes.SOS.DARK
         )

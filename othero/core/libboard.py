@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import types
+from othero.core import libtypes
 
 def count_soss(sog):
     """
@@ -28,9 +28,9 @@ def count_soss(sog):
     ndark, nlight, nblank = 0, 0, 0
     for row in sog:
         for sos in row:
-            if sos == types.SOS.DARK:
+            if sos == libtypes.SOS.DARK:
                 ndark = ndark + 1
-            elif sos == types.SOS.LIGHT:
+            elif sos == libtypes.SOS.LIGHT:
                 nlight = nlight + 1
             else:
                 nblank = nblank + 1

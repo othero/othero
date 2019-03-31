@@ -9,8 +9,8 @@
 
 import re
 
-from othero.core import types
-from othero.display import stdout
+from othero.core import libtypes
+from othero.display import libstdout
 from othero.game import utils
 
 class InvalidPositionInputError(Exception):
@@ -24,7 +24,7 @@ def p2p_game(dark_player_name, light_player_name):
     game = utils.Game(dark_player_name, light_player_name)
     finished = False
     while not finished:
-        stdout.display_sog_to_shell(game.sog)
+        libstdout.display_sog_to_shell(game.sog)
         while True:
             try: 
                 pos = prompt(game)
@@ -53,14 +53,14 @@ def p2p_game(dark_player_name, light_player_name):
     else:
         winner = ""
     
-    stdout.display_sog_to_shell(game.sog)
+    libstdout.display_sog_to_shell(game.sog)
     if winner != "":
         print(f"WINNER: {winner}")
     else:
         print("DRAW")
     
 def prompt(game):
-    if game.next_disk == types.Disk.DARK:
+    if game.next_disk == libtypes.Disk.DARK:
         sdisk = "DARK"
     else:
         sdisk = "LIGHT"
