@@ -7,15 +7,15 @@
 
 import unittest
 
+from othero.core import types
 from othero.display import stdout
-from othero import core
 
 class TestDisplayStdout(unittest.TestCase):
     __SOG = [ \
-        [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
-        [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
-        [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
-        [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK]   \
+        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
+        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
+        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
+        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK]   \
     ]
 
     def test_display_sog_to_shell(self):
