@@ -7,15 +7,15 @@
 
 import unittest
 
+from othero.core import types
 from othero.display import utils
-from othero import core
 
 class TestDisplayUtils(unittest.TestCase):
     __SOG = [ \
-        [core.SOS.BLANK, core.SOS.DARK , core.SOS.LIGHT, core.SOS.DARK ,], \
-        [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
-        [core.SOS.DARK , core.SOS.LIGHT, core.SOS.BLANK, core.SOS.BLANK,], \
-        [core.SOS.DARK , core.SOS.DARK , core.SOS.DARK , core.SOS.BLANK]   \
+        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
+        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
+        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
+        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK]   \
     ]
     __VSOG = [ \
         [' ', 'x', 'o', 'x',], \
@@ -26,19 +26,19 @@ class TestDisplayUtils(unittest.TestCase):
 
     def test_visualize_sos1(self):
         self.assertEqual(
-            utils.visualize_sos(core.SOS.DARK),
+            utils.visualize_sos(types.SOS.DARK),
             'x'
         )
 
     def test_visualize_sos2(self):
         self.assertEqual(
-            utils.visualize_sos(core.SOS.LIGHT),
+            utils.visualize_sos(types.SOS.LIGHT),
             'o'
         )
 
     def test_visualize_sos3(self):
         self.assertEqual(
-            utils.visualize_sos(core.SOS.BLANK),
+            utils.visualize_sos(types.SOS.BLANK),
             ' '
         )
 

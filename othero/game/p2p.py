@@ -9,7 +9,7 @@
 
 import re
 
-from othero import core
+from othero.core import types
 from othero.display import stdout
 from othero.game import utils
 
@@ -60,7 +60,7 @@ def p2p_game(dark_player_name, light_player_name):
         print("DRAW")
     
 def prompt(game):
-    if game.next_disk == core.Disk.DARK:
+    if game.next_disk == types.Disk.DARK:
         sdisk = "DARK"
     else:
         sdisk = "LIGHT"

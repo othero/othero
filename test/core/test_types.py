@@ -6,15 +6,11 @@
 # the LICENSE file in the root directory of this source tree.
 
 import unittest
+from othero.core import types
 
-from othero.game import p2p
-
-class TestGameP2P(unittest.TestCase):
-    def test_parse(self):
+class TestCoreTypesDisk(unittest.TestCase):
+    def test_toSOS(self):
         self.assertEqual(
-            p2p.parse(" (1, 0 )"),
-            (1, 0)            
+            types.Disk.toSOS(types.Disk.DARK),
+            types.SOS.DARK
         )
-
-if __name__ == "__main__":
-    unittest.main()
