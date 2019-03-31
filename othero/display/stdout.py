@@ -5,7 +5,6 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero import core
 from othero.display import utils
 
 def display_sog_to_shell(sog):
