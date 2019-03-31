@@ -5,8 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero import core
-from othero.core import sog
+from othero.core import libsog, libpos
 from othero.rule import utils
 
 def is_sos_change_valid(sog, pos, sos):
@@ -54,11 +53,11 @@ def calc_sog_after_sos_changed(sog, pos, sos):
         sog [[othero.core.SOS]]:
             Return the new state of the game after calcsog_after_sos_changed method.
     """
-    new_sog = core.sog.duplicate_sog(sog)
+    new_sog = libsog.duplicate_sog(sog)
     sids = utils.calc_all_sids(new_sog, pos, sos)
     new_sog[pos[0]][pos[1]] = sos
     for direction, sid in sids.items():
         for i in range(sid):
-            row, col = core.pos.advance_pos(pos, direction, i+1)
+            row, col = libpos.advance_pos(pos, direction, i+1)
             new_sog[row][col] = sos
     return new_sog

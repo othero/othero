@@ -7,24 +7,24 @@
 
 import unittest
 
-from othero.core import board, types
+from othero.core import libboard, libtypes
 
 class TestCoreBoard(unittest.TestCase):
     __SOG = [ \
-        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK] \
+        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
     ]
 
     def test_count_soss(self):
         self.assertEqual(
-            board.count_soss(self.__SOG),
+            libboard.count_soss(self.__SOG),
             (7, 3, 6)
         )
     
     def test_get_positions_in_sos(self):
         self.assertEqual(
-            board.get_positions_in_sos(self.__SOG, types.SOS.BLANK),
+            libboard.get_positions_in_sos(self.__SOG, libtypes.SOS.BLANK),
             [(0, 0), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
         )

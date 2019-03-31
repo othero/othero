@@ -7,41 +7,41 @@
 
 import unittest
 
-from othero.core import types
+from othero.core import libtypes
 from othero.rule import utils
 
 class TestRuleUtils(unittest.TestCase):
     __SOG = [ \
-        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK] \
+        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
     ]
 
     def test_calc_sid1(self):
         self.assertEqual(
-            utils.calc_sid(self.__SOG, (1, 2), types.SOS.DARK, types.Direction.LOW_L),
+            utils.calc_sid(self.__SOG, (1, 2), libtypes.SOS.DARK, libtypes.Direction.LOW_L),
             1
         )
 
     def test_calc_sid2(self):
         self.assertEqual(
-            utils.calc_sid(self.__SOG, (1, 2), types.SOS.BLANK, types.Direction.LOW_L),
+            utils.calc_sid(self.__SOG, (1, 2), libtypes.SOS.BLANK, libtypes.Direction.LOW_L),
             0
         )
 
     def test_calc_all_sids(self):
         expect = {
-            types.Direction.UP: 0,
-            types.Direction.UP_R: 0,
-            types.Direction.RIGHT: 0,
-            types.Direction.LOW_R: 0,
-            types.Direction.LOW: 0,
-            types.Direction.LOW_L: 1,
-            types.Direction.LEFT: 1,
-            types.Direction.UP_L: 0
+            libtypes.Direction.UP: 0,
+            libtypes.Direction.UP_R: 0,
+            libtypes.Direction.RIGHT: 0,
+            libtypes.Direction.LOW_R: 0,
+            libtypes.Direction.LOW: 0,
+            libtypes.Direction.LOW_L: 1,
+            libtypes.Direction.LEFT: 1,
+            libtypes.Direction.UP_L: 0
         }
         self.assertEqual(
-            utils.calc_all_sids(self.__SOG, (1, 2), types.SOS.DARK),
+            utils.calc_all_sids(self.__SOG, (1, 2), libtypes.SOS.DARK),
             expect
         )

@@ -7,43 +7,43 @@
 
 import unittest
 
-from othero.core import types
-from othero.rule import forward
+from othero.core import libtypes
+from othero.rule import libforward
 
 class TestRuleForward(unittest.TestCase):
     __SOG = [ \
-        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK] \
+        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
     ]
 
     def test_is_sos_change_valid1(self):
         self.assertEqual(
-            forward.is_sos_change_valid(self.__SOG, (1, 2), types.SOS.DARK),
+            libforward.is_sos_change_valid(self.__SOG, (1, 2), libtypes.SOS.DARK),
             True
         )
 
     def test_is_sos_change_valid2(self):
         self.assertEqual(
-            forward.is_sos_change_valid(self.__SOG, (0, 1), types.SOS.LIGHT),
+            libforward.is_sos_change_valid(self.__SOG, (0, 1), libtypes.SOS.LIGHT),
             False
         )
 
     def test_calc_sog_after_sos_changed1(self):
         sog2 = [ \
-            [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
-            [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK,], \
-            [types.SOS.DARK , types.SOS.DARK, types.SOS.BLANK, types.SOS.BLANK,], \
-            [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK] \
+            [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK,], \
+            [libtypes.SOS.DARK , libtypes.SOS.DARK, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
         ]
         self.assertEqual(
-            forward.calc_sog_after_sos_changed(self.__SOG, (1, 2), types.SOS.DARK),
+            libforward.calc_sog_after_sos_changed(self.__SOG, (1, 2), libtypes.SOS.DARK),
             sog2
         )
 
     def test_calc_sog_after_sos_changed2(self):
         self.assertEqual(
-            forward.calc_sog_after_sos_changed(self.__SOG, (1, 2), types.SOS.BLANK),
+            libforward.calc_sog_after_sos_changed(self.__SOG, (1, 2), libtypes.SOS.BLANK),
             self.__SOG
         )

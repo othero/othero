@@ -7,14 +7,14 @@
 
 import unittest
 
-from othero.core import sog, types
+from othero.core import libsog, libtypes
 
 class TestCoreSog(unittest.TestCase):
     __SOG = [ \
-        [types.SOS.BLANK, types.SOS.DARK , types.SOS.LIGHT, types.SOS.DARK ,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.LIGHT, types.SOS.BLANK, types.SOS.BLANK,], \
-        [types.SOS.DARK , types.SOS.DARK , types.SOS.DARK , types.SOS.BLANK] \
+        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
+        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
     ]
 
     __SOG_STR = \
@@ -24,7 +24,7 @@ class TestCoreSog(unittest.TestCase):
         "1,1,1,0"
 
     def test_duplicate_sog(self):
-        sog2 = sog.duplicate_sog(self.__SOG)
+        sog2 = libsog.duplicate_sog(self.__SOG)
         self.assertEqual(
             sog2,
             self.__SOG
@@ -34,12 +34,12 @@ class TestCoreSog(unittest.TestCase):
 
     def test_sog_to_string(self):
         self.assertEqual(
-            sog.sog_to_string(self.__SOG),
+            libsog.sog_to_string(self.__SOG),
             self.__SOG_STR
         )
 
     def test_string_to_sog(self):
         self.assertEqual(
-            sog.string_to_sog(self.__SOG_STR),
+            libsog.string_to_sog(self.__SOG_STR),
             self.__SOG
         )

@@ -5,18 +5,18 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import types
+from othero.core import libtypes
 
 # This variable means amount of change 'xy-coordinate' by one step.
 __POS_STEPS = {
-    types.Direction.UP   : (-1,  0),
-    types.Direction.UP_R : (-1,  1),
-    types.Direction.RIGHT: ( 0,  1),
-    types.Direction.LOW_R: ( 1,  1),
-    types.Direction.LOW  : ( 1,  0),
-    types.Direction.LOW_L: ( 1, -1),
-    types.Direction.LEFT : ( 0, -1),
-    types.Direction.UP_L : (-1, -1)
+    libtypes.Direction.UP   : (-1,  0),
+    libtypes.Direction.UP_R : (-1,  1),
+    libtypes.Direction.RIGHT: ( 0,  1),
+    libtypes.Direction.LOW_R: ( 1,  1),
+    libtypes.Direction.LOW  : ( 1,  0),
+    libtypes.Direction.LOW_L: ( 1, -1),
+    libtypes.Direction.LEFT : ( 0, -1),
+    libtypes.Direction.UP_L : (-1, -1)
 }
 
 def advance_pos(pos, direction, nsteps=1):
