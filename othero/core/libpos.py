@@ -44,7 +44,7 @@ def advance_pos(pos, direction, nsteps=1):
     step = __POS_STEPS[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
     
-def is_in_board(pos):
+def is_pos_inside_board(pos):
     """
     Check whether the position indicated by <pos> is within
     the board of a game.

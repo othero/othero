@@ -50,7 +50,7 @@ def calc_sid(sog, pos, sos, direction):
     while True:
         pos = libpos.advance_pos(pos, direction)
 
-        if not libpos.is_in_board(pos):
+        if not libpos.is_pos_inside_board(pos):
             sid = 0
             break
             

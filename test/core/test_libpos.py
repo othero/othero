@@ -16,14 +16,14 @@ class TestCorePos(unittest.TestCase):
             (3, 0)
         )
     
-    def test_is_in_board1(self):
+    def test_is_pos_inside_board1(self):
         self.assertEqual(
-            libpos.is_in_board((1, 2)),
+            libpos.is_pos_inside_board((1, 2)),
             True
         )
 
-    def test_is_in_board2(self):
+    def test_is_pos_inside_board2(self):
         self.assertEqual(
-            libpos.is_in_board((4, 0)),
+            libpos.is_pos_inside_board((4, 0)),
             False
         )
