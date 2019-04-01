@@ -24,7 +24,7 @@ def calc_sid(sog, pos, sos, direction):
     Calculate SID in the direction specified by <direction>.
 
     Args: 
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game.
 
         pos (int, int):
@@ -33,10 +33,10 @@ def calc_sid(sog, pos, sos, direction):
             The int values represent row and collumn number
             respectively. They begin from 0.
 
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos which the square is to be in.
 
-        direction othero.core.Direction:
+        direction othero.core.libtypes.Direction:
             Direction in which the sid should be calculated.
 
     Returns:
@@ -72,7 +72,7 @@ def calc_all_sids(sog, pos, sos):
     constant.
 
     Args: 
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game.
 
         pos (int, int):
@@ -81,16 +81,16 @@ def calc_all_sids(sog, pos, sos):
             The int values represent row and collumn number
             respectively. They begin from 0.
 
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos which the square is to be in.
 
     Returns:
-        {othero.core.Direction: int}:
+        {othero.core.libtypes.Direction: int}:
             State in each direction.
     
     Example:
         msid = callAllSIDs(sog, pos, sos)
-        if msid[othero.core.Direction.RIGHT] == 2:
+        if msid[othero.core.libtypes.Direction.RIGHT] == 2:
             print("Two disks are reversed in the right of the new disk")
     """
     sids = {}

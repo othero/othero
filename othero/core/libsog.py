@@ -17,11 +17,11 @@ def duplicate_sog(sog):
     Make a full copy (ie. deep copy) of <sog>.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game to be copied.
     
     Return:
-        [[othero.core.SOS]]:
+        [[othero.core.libtypes.SOS]]:
             State of the game that is newly created.
     """
     return [[sos for sos in row] for row in sog]
@@ -34,7 +34,7 @@ def sog_to_string(sog):
     game so that it can be passed to another program.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of a game to be converted.
     
     Returns:
@@ -60,7 +60,7 @@ def string_to_sog(s):
             String to be converted.
     
     Returns:
-        [[othero.core.SOS]]:
+        [[othero.core.libtypes.SOS]]:
             Resulting sos from <s>.
     """
     ps = list(map(int, s.split(',')))

@@ -9,7 +9,7 @@ from othero.core import libtypes
 
 def visualize_sos(sos):
     """
-    Convert othero.core.SOS to a visible symbol.
+    Convert sos to a visible symbol.
     
     The resulting symbols are:
     DARK : 'x'
@@ -17,7 +17,7 @@ def visualize_sos(sos):
     BLANK: ' '
 
     Args:
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos to be converted.
 
     Returns:
@@ -33,11 +33,10 @@ def visualize_sos(sos):
 
 def visualize_sog(sog):
     """
-    Convert othero.core.SOG to a two-dimentional
-    list of the visible symbols.
+    Convert sog to a two-dimentional list of the visible symbols.
 
     Args:
-        sog othero.core.SOG:
+        sog [[othero.core.libtypes.SOS]]:
             Sog to be converted.
 
     Returns:

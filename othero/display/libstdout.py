@@ -9,10 +9,10 @@ from othero.display import utils
 
 def display_sog_to_shell(sog):
     """
-    Display othero.core.SOG to the shell.
+    Display othero.core.libtypes.SOG to the shell.
 
     Args:
-        sog othero.core.SOG:
+        sog [[othero.core.libtypes.SOS]]:
             Sog to display.
 
     Returns:

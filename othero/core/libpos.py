@@ -31,7 +31,7 @@ def advance_pos(pos, direction, nsteps=1):
             The int values represent row and collumn number
             respectively. They begin from 0.
         
-        direction othero.core.Direction:
+        direction othero.core.libtypes.Direction:
             Direction in which pos advances.
 
         nsteps int = 1:
