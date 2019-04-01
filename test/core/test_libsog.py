@@ -32,6 +32,12 @@ class TestCoreSog(unittest.TestCase):
         self.assertFalse(
             id(sog2) == id(self.__SOG))
 
+    def test_get_sos_at_pos(self):
+        self.assertEqual(
+            libsog.get_sos_at_pos(self.__SOG, (1, 2)),
+            libtypes.SOS.BLANK
+        )
+
     def test_sog_to_string(self):
         self.assertEqual(
             libsog.sog_to_string(self.__SOG),

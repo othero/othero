@@ -8,7 +8,7 @@
 from othero.core import libtypes
 
 # This variable means amount of change 'xy-coordinate' by one step.
-__POS_STEPS = {
+_POS_STEPS = {
     libtypes.Direction.UP   : (-1,  0),
     libtypes.Direction.UP_R : (-1,  1),
     libtypes.Direction.RIGHT: ( 0,  1),
@@ -41,10 +41,10 @@ def advance_pos(pos, direction, nsteps=1):
         (int, int):
             New position in a board after advance.
     """
-    step = __POS_STEPS[direction]
+    step = _POS_STEPS[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
     
-def is_in_board(pos):
+def is_pos_inside_board(pos):
     """
     Check whether the position indicated by <pos> is within
     the board of a game.

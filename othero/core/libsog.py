@@ -26,6 +26,21 @@ def duplicate_sog(sog):
     """
     return [[sos for sos in row] for row in sog]
 
+def get_sos_at_pos(sog, pos):
+    """
+    Return a sos at <pos> in <sog>.
+
+    Args:
+        sog [[othero.core.libtypes.SOS]]:
+
+        pos (int, int):
+
+    Returns:
+        othero.core.libtypes.SOS:
+
+    """
+    return sog[pos[0]][pos[1]]
+
 def sog_to_string(sog):
     """
     Convert state of a game into string.
