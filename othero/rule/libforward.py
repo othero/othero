@@ -50,7 +50,7 @@ def calc_sog_after_sos_changed(sog, pos, sos):
             Sos which the square is to be in.
 
     Returns:
-        sog [[othero.core.libtypes.SOS]]:
+        [[othero.core.libtypes.SOS]]:
             Return the new state of the game after calcsog_after_sos_changed method.
     """
     new_sog = libsog.duplicate_sog(sog)
