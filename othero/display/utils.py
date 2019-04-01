@@ -42,7 +42,7 @@ def visualize_sog(sog):
 
     Returns:
         [[str]]:
-            Resulting list from <sos>.
+            Resulting list from <sog>.
     """
     return [[visualize_sos(sos) for sos in row] for row in sog]
 
