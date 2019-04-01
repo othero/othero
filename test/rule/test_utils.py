@@ -45,3 +45,31 @@ class TestRuleUtils(unittest.TestCase):
             utils.calc_all_sids(self.__SOG, (1, 2), libtypes.SOS.DARK),
             expect
         )
+
+    def test_calc_sidb1(self):
+        self.assertEqual(
+            utils.calc_sidb(self.__SOG, (1, 2), libtypes.Direction.LOW_R),
+            0
+        )
+
+    def test_calc_sidb2(self):
+        self.assertEqual(
+            utils.calc_sidb(self.__SOG, (1, 0), libtypes.Direction.LOW),
+            1
+        )
+
+    def test_calc_all_sidbs(self):
+        expect = {
+            libtypes.Direction.UP: 0,
+            libtypes.Direction.UP_R: 0,
+            libtypes.Direction.RIGHT: 0,
+            libtypes.Direction.LOW_R: 0,
+            libtypes.Direction.LOW: 1,
+            libtypes.Direction.LOW_L: 0,
+            libtypes.Direction.LEFT: 0,
+            libtypes.Direction.UP_L: 0
+        }
+        self.assertEqual(
+            utils.calc_all_sidbs(self.__SOG, (1, 0)),
+            expect
+        )
