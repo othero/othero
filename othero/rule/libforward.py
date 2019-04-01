@@ -13,7 +13,7 @@ def is_sos_change_valid(sog, pos, sos):
     Checks whether the sos change is allowed by osero rule.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of a game to be converted.
 
         pos (int, int):
@@ -22,7 +22,7 @@ def is_sos_change_valid(sog, pos, sos):
             The int values represent row and collumn number
             respectively. They begin from 0.
         
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos which the square is to be in.
     
     Returns:
@@ -37,7 +37,7 @@ def calc_sog_after_sos_changed(sog, pos, sos):
     according to the osero rule.
 
     Args: 
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game.
 
         pos (int, int):
@@ -46,11 +46,11 @@ def calc_sog_after_sos_changed(sog, pos, sos):
             The int values represent row and collumn number
             respectively. They begin from 0.
 
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos which the square is to be in.
 
     Returns:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             Return the new state of the game after calcsog_after_sos_changed method.
     """
     new_sog = libsog.duplicate_sog(sog)
