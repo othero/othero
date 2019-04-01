@@ -12,18 +12,18 @@ def count_soss(sog):
     Count the number of each sos in the <sog>.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game.
     
     Returns:
         int:
-            The number of othero.core.SOS.DARK in <sog>.
+            The number of othero.core.libtypes.SOS.DARK in <sog>.
 
         int:
-            The number of othero.core.SOS.LIGHT in <sog>.
+            The number of othero.core.libtypes.SOS.LIGHT in <sog>.
 
         int:
-            The number of othero.core.SOS.BLANK in <sog>.
+            The number of othero.core.libtypes.SOS.BLANK in <sog>.
     """
     ndark, nlight, nblank = 0, 0, 0
     for row in sog:
@@ -41,10 +41,10 @@ def get_positions_in_sos(sog, sos):
     Return a list of positions in <sog> where sos is <sos>.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             Sog to be searched in. 
         
-        sos othero.core.SOS:
+        sos othero.core.libtypes.SOS:
             Sos to be searched for.
     
     Returns:

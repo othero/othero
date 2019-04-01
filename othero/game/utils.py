@@ -78,7 +78,7 @@ def create_sog():
     Create a new sog in the initial state.
 
     Returns:
-        [[othero.core.SOS]]:
+        [[othero.core.libtypes.SOS]]:
             The newly created sog in the initial state.
     """
     return libsog.duplicate_sog(INIT_SOG)
@@ -89,7 +89,7 @@ def is_put_disk_valid(sog, pos, disk):
     osero rule.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of a game to be converted.
 
         pos (int, int):
@@ -98,7 +98,7 @@ def is_put_disk_valid(sog, pos, disk):
             The int values represent row and collumn number
             respectively. They begin from 0.
         
-        disk othero.core.Disk:
+        disk othero.core.libtypes.Disk:
             The disk to be put. 
     
     Returns:
@@ -113,7 +113,7 @@ def calc_sog_after_put_disk(sog, pos, disk):
     to the osero rule.
     
     Args: 
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             State of the game.
     
         pos (int, int):
@@ -122,11 +122,11 @@ def calc_sog_after_put_disk(sog, pos, disk):
             The int values represent row and collumn number
             respectively. They begin from 0.
     
-        disk othero.core.Disk:
+        disk othero.core.libtypes.Disk:
             The disk to be put.
     
     Returns:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             Return the new state of the game after <disk> is put.
     
     Errors:
@@ -145,10 +145,10 @@ def get_available_positions(sog, disk):
     Return a list of positions in <sog> where putting <disk> is allowed.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog [[othero.core.libtypes.SOS]]:
             Sog to be searched in. 
         
-        disk othero.core.Disk:
+        disk othero.core.libtypes.Disk:
             Disk to be put.
     
     Returns:

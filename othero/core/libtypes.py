@@ -45,11 +45,11 @@ class Disk(enum.Enum):
         Convert Disk into SOS.
 
         Args:
-            disk othero.core.Disk:
+            disk othero.core.libtypes.Disk:
                 Disk to be converted.
         
         Returns:
-            othero.core.SOS:
+            othero.core.libtypes.SOS:
                 Resulting SOS from <disk>.
         """
         if disk == Disk.DARK:
