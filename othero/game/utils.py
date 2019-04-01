@@ -7,6 +7,7 @@
 
 from othero.core import libboard, libsog, libtypes
 from othero.rule import libforward
+from othero.search import libfws
 from othero.display import utils
 
 INIT_SOG = [ \
@@ -66,7 +67,7 @@ class Game():
             self.next_disk = libtypes.Disk.DARK
     
     def isAbleToPut(self):
-        avail_poss = get_available_positions(self.sog, self.next_disk)
+        avail_poss = libfws.get_available_positions(self.sog, self.next_disk)
         return len(avail_poss) != 0
 
     def countDisks(self):
@@ -139,24 +140,3 @@ def calc_sog_after_put_disk(sog, pos, disk):
         raise InvalidDiskPositionError(sog, pos, disk)
 
     return libforward.calc_sog_after_sos_changed(sog, pos, libtypes.Disk.toSOS(disk))
-
-def get_available_positions(sog, disk):
-    """
-    Return a list of positions in <sog> where putting <disk> is allowed.
-
-    Args:
-        sog [[othero.core.libtypes.SOS]]:
-            Sog to be searched in. 
-        
-        disk othero.core.libtypes.Disk:
-            Disk to be put.
-    
-    Returns:
-        [(int, int)]:
-            List of positions in <sog> where putting <disk> is allowed.
-    """
-    sos = libtypes.Disk.toSOS(disk)
-
-    blank_poss = libboard.get_positions_in_sos(sog, libtypes.SOS.BLANK)
-    return [pos for pos in blank_poss \
-                if libforward.is_sos_change_valid(sog, pos, sos)]
