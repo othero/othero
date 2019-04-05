@@ -11,6 +11,43 @@ from othero import fws
 from othero.core import libtypes
 from othero.search import libfws
 
+class TestFws(unittest.TestCase):
+    def test_calc_is_dtw1(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT]
+        ]
+        self.assertFalse(fws.calc_is_dtw(sog, libtypes.Disk.DARK, libtypes.Disk.DARK))
+
+    def test_calc_is_dtw2(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK]
+        ]
+        self.assertTrue(fws.calc_is_dtw(sog, libtypes.Disk.DARK, libtypes.Disk.DARK))
+
+    def test_calc_is_dtw3(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK]
+        ]
+        self.assertFalse(fws.calc_is_dtw(sog, libtypes.Disk.LIGHT, libtypes.Disk.DARK))
+
+    def test_calc_is_dtw_with_manager(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT]
+        ]
+        self.assertFalse(fws.calc_is_dtw_with_manager(sog, libtypes.Disk.DARK, libtypes.Disk.DARK))
+
 class TestFwsFwsNodeWithManager(unittest.TestCase):
     __SOG = [
         [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK ],

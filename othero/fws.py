@@ -64,3 +64,30 @@ class FwsTreeWithManager(libfws.FwsTree):
     def __init__(self, sog, stack_size, stack_ninc=10, first_disk=libtypes.Disk.DARK):
         self.fwsnm = FwsNodeManager(stack_size, stack_ninc)
         self.root = FwsNodeWithManager.create(self, None, sog, libdisk.prev_disk(first_disk))
+
+# depth-first
+def run(crawler):
+    if crawler.hasReachedLeaf():
+        crawler.storeIsDtw()
+        return
+
+    nnode = crawler.expandNode()
+    for i in range(nnode):
+        crawler.advance(i)
+        run(crawler)
+        crawler.storeIsDtw()
+        crawler.retreat()
+    crawler.storeIsDtw()
+    crawler.shrinkNode()
+
+def calc_is_dtw(sog, my_disk, first_disk=libtypes.Disk.DARK):
+    tree = libfws.FwsTree(sog, first_disk)
+    crawler = libfws.FwsCrawler(my_disk, tree.root)
+    run(crawler)
+    return crawler.calcIsDtw()
+
+def calc_is_dtw_with_manager(sog, my_disk, first_disk=libtypes.Disk.DARK):
+    tree = FwsTreeWithManager(sog, 100, 10, first_disk)
+    crawler = libfws.FwsCrawler(my_disk, tree.root)
+    run(crawler)
+    return crawler.calcIsDtw()
