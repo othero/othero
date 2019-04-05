@@ -91,3 +91,6 @@ def calc_is_dtw_with_manager(sog, my_disk, first_disk=libtypes.Disk.DARK):
     crawler = libfws.FwsCrawler(my_disk, tree.root)
     run(crawler)
     return crawler.calcIsDtw()
+
+if __name__ == "__main__":
+    print(calc_is_dtw(libsog.create_sog(), libtypes.Disk.LIGHT))
