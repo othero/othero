@@ -129,3 +129,67 @@ class FwsNode:
 class FwsTree:
     def __init__(self, sog, first_disk=libtypes.Disk.DARK):
         self.root = FwsNode.create(self, None, sog, libdisk.prev_disk(first_disk))
+
+# stateless crawler
+class FwsCrawler:
+    def __init__(self, my_disk, start_node):
+        self.__my_disk = my_disk
+        self.__cur_node = start_node
+
+    def duplicate(self):
+        return FwsCrawler(self.__my_disk, self.__cur_node)
+
+    # nid: node number
+    def advance(self, nid):
+        self.__cur_node = self.__cur_node.next_nodes[nid]
+
+    def retreat(self):
+        self.__cur_node = self.__cur_node.prev_node
+
+    def expandNode(self):
+        self.__cur_node.expand()
+        return len(self.__cur_node.next_nodes)
+
+    def shrinkNode(self):
+        self.__cur_node.shrink()
+
+    def storeMark(self, key, value):
+        self.__cur_node.addMark(key, value)
+
+    def loadMark(self, key):
+        return self.__cur_node.getMark(key)
+
+    def hasReachedLeaf(self):
+        return self.__cur_node.isLeaf
+
+    # DTW := destined to winning
+    def calcIsDtw(self):
+        cache = self.loadMark(FwsNode.ReservedKeys.IS_DTW)
+        if cache is not None:
+            return cache
+
+        def getIsDTWFromNode(node):
+            return node.getMark(FwsNode.ReservedKeys.IS_DTW)
+
+        if self.__cur_node.isLeaf:
+            if utils.get_winner_disk(self.__cur_node.cur_sog) == self.__my_disk:
+                return True
+            else:
+                return False
+
+        dtws = [getIsDTWFromNode(node)
+            for node in self.__cur_node.next_nodes]
+        if self.__cur_node.next_disk == self.__my_disk:
+            if set(dtws) == {None}:
+                return None
+            return any(dtws)
+        else:
+            if None in dtws:
+                return None
+            return all(dtws)
+
+    def storeIsDtw(self):
+        self.storeMark(FwsNode.ReservedKeys.IS_DTW, self.calcIsDtw())
+
+    def loadIsDtw(self):
+        return self.loadMark(FwsNode.ReservedKeys.IS_DTW)

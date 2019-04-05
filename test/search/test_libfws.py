@@ -139,3 +139,61 @@ class TestSearchFwsFwsNode(unittest.TestCase):
         node.addMark("key", "value")
         node.delMark("key")
         self.assertIsNone(node.getMark("key"))
+
+class TestSearchFwsFwsCrawler(unittest.TestCase):
+    __SOG = [
+            [libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+            [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK],
+            [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK],
+            [libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK]
+        ]
+
+    __TREE = libfws.FwsTree(__SOG)
+
+    __ROOT = libfws.FwsNode.create(__TREE, __TREE.root, __SOG, libtypes.Disk.LIGHT)
+
+    def test_expandNode(self):
+        crawler = libfws.FwsCrawler(libtypes.Disk.DARK, self.__ROOT)
+        self.assertGreater(crawler.expandNode(), 0)
+
+    def test_loadMark(self):
+        crawler = libfws.FwsCrawler(libtypes.Disk.DARK, self.__ROOT)
+        self.assertIsNone(crawler.loadMark("key"))
+
+    def test_storeMark__loadMark(self):
+        crawler = libfws.FwsCrawler(libtypes.Disk.DARK, self.__ROOT)
+        crawler.storeMark("key", "value")
+        self.assertEqual(crawler.loadMark("key"), "value")
+
+    def test_hasReachedLeaf(self):
+        node = libfws.FwsNode.create(self.__TREE, self.__TREE.root, self.__SOG, libtypes.Disk.LIGHT)
+        node.isLeaf = True
+        crawler = libfws.FwsCrawler(libtypes.Disk.DARK, node)
+        self.assertTrue(crawler.hasReachedLeaf)
+
+    def test_calcIsDtw1(self):
+        node = libfws.FwsNode.create(self.__TREE, self.__TREE.root, self.__SOG, libtypes.Disk.LIGHT)
+        crawler = libfws.FwsCrawler(libtypes.Disk.DARK, node)
+        crawler.expandNode()
+        for nd in node.next_nodes:
+            nd.addMark(libfws.FwsNode.ReservedKeys.IS_DTW, True) 
+        node.next_nodes[0].addMark(libfws.FwsNode.ReservedKeys.IS_DTW, False)
+        self.assertTrue(crawler.calcIsDtw())
+
+    def test_calcIsDtw2(self):
+        node = libfws.FwsNode.create(self.__TREE, self.__TREE.root, self.__SOG, libtypes.Disk.LIGHT)
+        crawler = libfws.FwsCrawler(libtypes.Disk.LIGHT, node)
+        crawler.expandNode()
+        for nd in node.next_nodes:
+            nd.addMark(libfws.FwsNode.ReservedKeys.IS_DTW, True) 
+        node.next_nodes[0].addMark(libfws.FwsNode.ReservedKeys.IS_DTW, False)
+        self.assertFalse(crawler.calcIsDtw())
+
+    def test_storeIsDtw__loadIsDtw(self):
+        node = libfws.FwsNode.create(self.__TREE, self.__TREE.root, self.__SOG, libtypes.Disk.LIGHT)
+        crawler = libfws.FwsCrawler(libtypes.Disk.LIGHT, node)
+        crawler.expandNode()
+        for nd in node.next_nodes:
+            nd.addMark(libfws.FwsNode.ReservedKeys.IS_DTW, True) 
+        crawler.storeIsDtw()
+        self.assertTrue(crawler.loadIsDtw())
