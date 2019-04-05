@@ -1,0 +1,17 @@
+# coding: utf-8
+
+# Copyright (C) 2019 Tanaka Tatsuya and contributors
+#
+# This source code is licensed under the MIT License found in
+# the LICENSE file in the root directory of this source tree.
+
+from othero.core import libboard, libtypes, libsog
+
+def get_winner_disk(sog):
+    ndark, nlight = libboard.count_disks(sog)
+    if ndark > nlight:
+        return libtypes.Disk.DARK
+    elif ndark < nlight:
+        return libtypes.Disk.LIGHT
+    else:
+        return None
