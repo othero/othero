@@ -28,3 +28,9 @@ class TestCoreBoard(unittest.TestCase):
             libboard.get_positions_in_sos(self.__SOG, libtypes.SOS.BLANK),
             [(0, 0), (1, 2), (1, 3), (2, 2), (2, 3), (3, 3)]
         )
+
+    def test_count_disks(self):
+        self.assertEqual(
+            libboard.count_disks(self.__SOG),
+            (7, 3)
+        )

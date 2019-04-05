@@ -57,3 +57,7 @@ def get_positions_in_sos(sog, sos):
             if sog[i][j] == sos:
                 poss.append((i, j))
     return poss
+
+def count_disks(sog):
+    ndark, nlight, _ = count_soss(sog)
+    return ndark, nlight
