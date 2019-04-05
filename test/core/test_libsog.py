@@ -23,6 +23,16 @@ class TestCoreSog(unittest.TestCase):
         "1,-1,0,0," + \
         "1,1,1,0"
 
+    def test_create_sog(self):
+        self.assertEqual(
+            libsog.create_sog(),
+            libsog.DEFAULT_SOG
+        )
+        self.assertNotEqual(
+            id(libsog.create_sog()),
+            id(libsog.DEFAULT_SOG)
+        )
+
     def test_duplicate_sog(self):
         sog2 = libsog.duplicate_sog(self.__SOG)
         self.assertEqual(

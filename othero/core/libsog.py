@@ -5,12 +5,24 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
+from othero.core import libtypes
+
 """ NOTE
 SOG:
     SOG is a two-dimentional array. The first dimention indicates a
     row, and the second indicates a collumn. For example, SOG[i][j]
     represents the sos in the intersection of i-th row and j-th collumn.
 """
+
+DEFAULT_SOG = [
+        [libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK],
+        [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK],
+        [libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK]
+    ]
+
+def create_sog():
+    return duplicate_sog(DEFAULT_SOG)
 
 def duplicate_sog(sog):
     """
