@@ -14,7 +14,7 @@ def is_sos_restore_valid(sog, pos):
     Checks whether the sos restoration is allowed by osero rule.
 
     Args:
-        sog [[othero.core.SOS]]:
+        sog othero.core.libsog.SOG:
 
         pos (int, int):
         
@@ -22,7 +22,7 @@ def is_sos_restore_valid(sog, pos):
         bool:
             Validity of restoring sos at <pos>.
     """
-    sos = sog[pos[0]][pos[1]]
+    sos = sog.getSos(pos)
     fv = any(map(bool, utils.calc_all_sids(sog, pos, sos).values())) 
     if fv:
         return False
@@ -36,7 +36,7 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
     possible sogs according to the osero rule.
 
     Args: 
-        sog [[othero.core.SOS]]:
+        sog othero.core.libsog.SOG:
 
         pos (int, int):
 
@@ -44,13 +44,13 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
             Sos which the square is to be restored to.
 
     Returns:
-        [[[othero.core.SOS]]]:
+        [othero.core.libsog.SOG]
             A list of possible sogs after the sos restoration.
     """
     def changeSosInOneDirection(sog, pos, direction, sos, nsquare):
         for i in range(1, nsquare+1):
-            row, col = libpos.advance_pos(pos, direction, i)
-            sog[row][col] = sos
+            new_pos = libpos.advance_pos(pos, direction, i)
+            sog.setSos(new_pos, sos)
 
     def changeSosInAllDirections(sog, pos, sos, dn):
         for direction, nsquare in dn.items():
@@ -71,18 +71,18 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
              ))
              ][1:]
 
-    prev_sos = sog[pos[0]][pos[1]]
+    prev_sos = sog.getSos(pos)
     if prev_sos == libtypes.SOS.DARK:
         asos = libtypes.SOS.LIGHT
     elif prev_sos == libtypes.SOS.LIGHT:
         asos = libtypes.SOS.DARK
 
-    sog = libsog.duplicate_sog(sog)
-    sog[pos[0]][pos[1]] = sos
+    sog = sog.duplicate()
+    sog.setSos(pos, sos)
 
     prev_sogs = []
     for ncmb in ncmbs:
-        prev_sog = libsog.duplicate_sog(sog)
+        prev_sog = sog.duplicate()
         prev_sogs.append(prev_sog)
         changeSosInAllDirections(prev_sog, pos, asos, ncmb)
 

@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import libtypes, libpos
+from othero.core import libtypes, libpos, libsog
 
 """ NOTE
 SID:
@@ -34,7 +34,7 @@ def calc_sid(sog, pos, sos, direction):
     Calculate SID in the direction specified by <direction>.
 
     Args: 
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of the game.
 
         pos (int, int):
@@ -60,11 +60,11 @@ def calc_sid(sog, pos, sos, direction):
     while True:
         pos = libpos.advance_pos(pos, direction)
 
-        if not libpos.is_in_board(pos):
+        if not sog.isInside(pos):
             sid = 0
             break
-
-        s = sog[pos[0]][pos[1]]
+            
+        s = sog.getSos(pos)
         if s == libtypes.SOS.BLANK:
             sid = 0
             break
@@ -82,7 +82,7 @@ def calc_all_sids(sog, pos, sos):
     constant.
 
     Args: 
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of the game.
 
         pos (int, int):
@@ -113,7 +113,7 @@ def calc_sidb(sog, pos, direction):
     Calculate SIDB in the direction specified by <direction>.
 
     Args: 
-        sog [[othero.core.SOS]]:
+        sog othero.core.libsog.SOG:
 
         pos (int, int):
 
@@ -123,7 +123,7 @@ def calc_sidb(sog, pos, direction):
         int:
             State in the direction of <direction>.
     """
-    sos = sog[pos[0]][pos[1]]
+    sos = sog.getSos(pos)
     if sos == libtypes.SOS.BLANK:
         return 0
 
@@ -131,10 +131,10 @@ def calc_sidb(sog, pos, direction):
     while True:
         pos = libpos.advance_pos(pos, direction)
 
-        if not libpos.is_in_board(pos):
+        if not sog.isInside(pos):
             break
 
-        s = sog[pos[0]][pos[1]]        
+        s = sog.getSos(pos)
         if s == sos:
             sidb += 1
         else:
@@ -152,7 +152,7 @@ def calc_all_sidbs(sog, pos):
     constant.
 
     Args:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
 
         pos (int, int):
 

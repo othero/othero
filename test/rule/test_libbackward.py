@@ -7,26 +7,22 @@
 
 import unittest
 
+from test import testutils
+from test.testutils import Test1
+
 from othero.core import libtypes
 from othero.rule import libbackward
 
 class TestRuleBackward(unittest.TestCase):
-    __SOG = [ \
-        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
-    ]
-
     def test_is_sos_restore_valid1(self):
         self.assertEqual(
-            libbackward.is_sos_restore_valid(self.__SOG, (1, 0)),
+            libbackward.is_sos_restore_valid(Test1.SOG, (1, 0)),
             False
         )
 
     def test_is_sos_restore_valid2(self):
         self.assertEqual(
-            libbackward.is_sos_restore_valid(self.__SOG, (3, 0)),
+            libbackward.is_sos_restore_valid(Test1.SOG, (3, 0)),
             True
         )
 
@@ -36,26 +32,26 @@ class TestRuleBackward(unittest.TestCase):
                     and all([a in x for a in y])
 
         result = is_equal(
-            libbackward.calc_sogs_after_sos_restored(self.__SOG, (3, 0), libtypes.SOS.LIGHT),
+            libbackward.calc_sogs_after_sos_restored(Test1.SOG, (3, 0), libtypes.SOS.LIGHT),
             [
-                [
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ],
-                [
+                ]),
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ],
-                [
+                ]),
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ]
+                ])
             ]
         )
         self.assertTrue(result)
@@ -66,26 +62,26 @@ class TestRuleBackward(unittest.TestCase):
                     and all([a in x for a in y])
 
         result = is_equal(
-            libbackward.calc_sogs_after_sos_restored(self.__SOG, (3, 0), libtypes.SOS.BLANK),
+            libbackward.calc_sogs_after_sos_restored(Test1.SOG, (3, 0), libtypes.SOS.BLANK),
             [
-                [
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ],
-                [
+                ]),
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ],
-                [
+                ]),
+                testutils.sosss_to_sog([
                     [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
-                ]
+                ])
             ]
         )
         self.assertTrue(result)
