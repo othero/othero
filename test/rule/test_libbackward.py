@@ -30,7 +30,7 @@ class TestRuleBackward(unittest.TestCase):
             True
         )
 
-    def test_calc_sogs_after_sos_restored(self):
+    def test_calc_sogs_after_sos_restored1(self):
         def is_equal(x, y):
             return all([a in y for a in x]) \
                     and all([a in x for a in y])
@@ -55,6 +55,36 @@ class TestRuleBackward(unittest.TestCase):
                     [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
                     [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
+                ]
+            ]
+        )
+        self.assertTrue(result)
+
+    def test_calc_sogs_after_sos_restored2(self):
+        def is_equal(x, y):
+            return all([a in y for a in x]) \
+                    and all([a in x for a in y])
+
+        result = is_equal(
+            libbackward.calc_sogs_after_sos_restored(self.__SOG, (3, 0), libtypes.SOS.BLANK),
+            [
+                [
+                    [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
+                    [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK]
+                ],
+                [
+                    [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
+                    [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
+                ],
+                [
+                    [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ],
+                    [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+                    [libtypes.SOS.BLANK, libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK]
                 ]
             ]
         )

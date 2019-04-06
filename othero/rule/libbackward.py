@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import libsog, libpos
+from othero.core import libsog, libpos, libtypes
 from othero.rule import utils
 import itertools
 
@@ -48,7 +48,7 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
             A list of possible sogs after the sos restoration.
     """
     def changeSosInOneDirection(sog, pos, direction, sos, nsquare):
-        for i in range(nsquare+1):
+        for i in range(1, nsquare+1):
             row, col = libpos.advance_pos(pos, direction, i)
             sog[row][col] = sos
 
@@ -71,6 +71,12 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
              ))
              ][1:]
 
+    prev_sos = sog[pos[0]][pos[1]]
+    if prev_sos == libtypes.SOS.DARK:
+        asos = libtypes.SOS.LIGHT
+    elif prev_sos == libtypes.SOS.LIGHT:
+        asos = libtypes.SOS.DARK
+
     sog = libsog.duplicate_sog(sog)
     sog[pos[0]][pos[1]] = sos
 
@@ -78,6 +84,6 @@ def calc_sogs_after_sos_restored(sog, pos, sos):
     for ncmb in ncmbs:
         prev_sog = libsog.duplicate_sog(sog)
         prev_sogs.append(prev_sog)
-        changeSosInAllDirections(prev_sog, pos, sos, ncmb)
+        changeSosInAllDirections(prev_sog, pos, asos, ncmb)
 
     return prev_sogs
