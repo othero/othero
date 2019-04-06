@@ -15,15 +15,3 @@ class TestCorePos(unittest.TestCase):
             libpos.advance_pos((1, 2), libtypes.Direction.LOW_L, 2),
             (3, 0)
         )
-    
-    def test_is_pos_inside_board1(self):
-        self.assertEqual(
-            libpos.is_pos_inside_board((1, 2)),
-            True
-        )
-
-    def test_is_pos_inside_board2(self):
-        self.assertEqual(
-            libpos.is_pos_inside_board((4, 0)),
-            False
-        )

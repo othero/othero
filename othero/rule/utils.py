@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import libtypes, libpos
+from othero.core import libtypes, libpos, libsog
 
 """ NOTE
 SID:
@@ -50,7 +50,7 @@ def calc_sid(sog, pos, sos, direction):
     while True:
         pos = libpos.advance_pos(pos, direction)
 
-        if not libpos.is_pos_inside_board(pos):
+        if not libsog.is_pos_inside_sog(sog, pos):
             sid = 0
             break
             

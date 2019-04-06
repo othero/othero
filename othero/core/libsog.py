@@ -41,6 +41,35 @@ def get_sos_at_pos(sog, pos):
     """
     return sog[pos[0]][pos[1]]
 
+def is_pos_inside_sog(sog, pos):
+    """
+    Check whether the position indicated by <pos> is within
+    the board of a game.
+
+    Args:
+        sog [[othero.core.libtypes.SOS]]:
+
+        pos (int, int):
+            Position to be checked.
+
+            The int values represent row and collumn number
+            respectively. They begin from 0.
+    
+    Returns:
+        bool:
+            Whether the position is within the board of a game.
+            True: inside
+            False: outside
+    """
+    if pos[0] not in range(len(sog)):
+        return False
+
+    row = sog[pos[0]]
+    if pos[1] not in range(len(row)):
+        return False
+
+    return True
+
 def sog_to_string(sog):
     """
     Convert state of a game into string.

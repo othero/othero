@@ -38,6 +38,18 @@ class TestCoreSog(unittest.TestCase):
             libtypes.SOS.BLANK
         )
 
+    def test_is_pos_inside_sog1(self):
+        self.assertEqual(
+            libsog.is_pos_inside_sog(self.__SOG, (1, 2)),
+            True
+        )
+
+    def test_is_pos_inside_sog2(self):
+        self.assertEqual(
+            libsog.is_pos_inside_sog(self.__SOG, (4, 0)),
+            False
+        )
+
     def test_sog_to_string(self):
         self.assertEqual(
             libsog.sog_to_string(self.__SOG),
