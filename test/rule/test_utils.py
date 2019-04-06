@@ -7,26 +7,21 @@
 
 import unittest
 
+from test.testutils import Test1
+
 from othero.core import libtypes
 from othero.rule import utils
 
 class TestRuleUtils(unittest.TestCase):
-    __SOG = [ \
-        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
-    ]
-
     def test_calc_sid1(self):
         self.assertEqual(
-            utils.calc_sid(self.__SOG, (1, 2), libtypes.SOS.DARK, libtypes.Direction.LOW_L),
+            utils.calc_sid(Test1.SOG, (1, 2), libtypes.SOS.DARK, libtypes.Direction.LOW_L),
             1
         )
 
     def test_calc_sid2(self):
         self.assertEqual(
-            utils.calc_sid(self.__SOG, (1, 2), libtypes.SOS.BLANK, libtypes.Direction.LOW_L),
+            utils.calc_sid(Test1.SOG, (1, 2), libtypes.SOS.BLANK, libtypes.Direction.LOW_L),
             0
         )
 
@@ -42,6 +37,6 @@ class TestRuleUtils(unittest.TestCase):
             libtypes.Direction.UP_L: 0
         }
         self.assertEqual(
-            utils.calc_all_sids(self.__SOG, (1, 2), libtypes.SOS.DARK),
+            utils.calc_all_sids(Test1.SOG, (1, 2), libtypes.SOS.DARK),
             expect
         )

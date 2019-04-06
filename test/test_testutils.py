@@ -7,11 +7,12 @@
 
 import unittest
 
-from othero.core import libpos, libtypes
+from test import testutils
+from test.testutils import Test2
 
-class TestCorePos(unittest.TestCase):
-    def test_advance_pos(self):
+class TestTestutils(unittest.TestCase):
+    def test_sosss_to_sog(self):
         self.assertEqual(
-            libpos.advance_pos((1, 2), libtypes.Direction.LOW_L, 2),
-            (3, 0)
+            testutils.sosss_to_sog(Test2.SOSSS),
+            Test2.SOG
         )

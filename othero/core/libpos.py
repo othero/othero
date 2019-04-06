@@ -44,23 +44,3 @@ def advance_pos(pos, direction, nsteps=1):
     step = _POS_STEPS[direction]
     return (pos[0]+step[0]*nsteps, pos[1]+step[1]*nsteps)
     
-def is_pos_inside_board(pos):
-    """
-    Check whether the position indicated by <pos> is within
-    the board of a game.
-
-    Args:
-        pos (int, int):
-            Position to be checked.
-
-            The int values represent row and collumn number
-            respectively. They begin from 0.
-    
-    Returns:
-        bool:
-            Whether the position is within the board of a game.
-            True: inside
-            False: outside
-    """
-    return pos[0] >= 0 and pos[0] < 4 and \
-           pos[1] >= 0 and pos[1] < 4

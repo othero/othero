@@ -7,16 +7,12 @@
 
 import unittest
 
+from test.testutils import Test1
+
 from othero.core import libtypes
 from othero.display import utils
 
 class TestDisplayUtils(unittest.TestCase):
-    __SOG = [ \
-        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK]   \
-    ]
     __VSOG = [ \
         [' ', 'x', 'o', 'x',], \
         ['x', 'o', ' ', ' ',], \
@@ -44,7 +40,7 @@ class TestDisplayUtils(unittest.TestCase):
 
     def test_visualize_sog(self):
         self.assertEqual(
-            utils.visualize_sog(self.__SOG),
+            utils.visualize_sog(Test1.SOG),
             self.__VSOG
         )
 
