@@ -22,6 +22,13 @@ DEFAULT_SOG = [
     ]
 
 def create_sog():
+    """
+    Return a new sog in the shape of 4x4. Some disks are already set.
+
+    Returns:
+        [[otero.core.libtypes.SOS]]:
+    
+    """
     return duplicate_sog(DEFAULT_SOG)
 
 def duplicate_sog(sog):

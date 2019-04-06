@@ -59,5 +59,19 @@ def get_positions_in_sos(sog, sos):
     return poss
 
 def count_disks(sog):
+    """
+    Return the number of disks in <sog>.
+
+    Args:
+        sog [[othero.core.libtypes.SOS]]:
+    
+    
+    Returns:
+        int:
+            The number of dark disks in <sog>.
+        
+        int:
+            The number of light disks in <sog>.
+    """
     ndark, nlight, _ = count_soss(sog)
     return ndark, nlight

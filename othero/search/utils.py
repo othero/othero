@@ -8,6 +8,14 @@
 from othero.core import libboard, libtypes, libsog
 
 def get_winner_disk(sog):
+    """
+    Return a disk of the winner. This function does not check if the
+    game was over, and you should check it before calling this.
+
+    Args:
+        sog [[othero.core.libtypes.SOS]]:
+
+    """
     ndark, nlight = libboard.count_disks(sog)
     if ndark > nlight:
         return libtypes.Disk.DARK
