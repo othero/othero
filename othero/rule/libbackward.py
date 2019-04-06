@@ -7,6 +7,7 @@
 
 from othero.core import libsog, libpos
 from othero.rule import utils
+import itertools
 
 def is_sos_restore_valid(sog, pos):
     """
@@ -31,40 +32,38 @@ def is_sos_restore_valid(sog, pos):
 
 def calc_sogs_after_sos_restored(sog, pos, sos):
     """
-    Restore sos at the <pos> to <sos> and calculate the resulting
-    possible sogs according to the osero rule.
-
-    Args: 
-        sog [[othero.core.SOS]]:
-
-        pos (int, int):
-
-        sos othero.core.SOS:
-            Sos which the square is to be restored to.
-
-    Returns:
-        [[[othero.core.SOS]]]:
-            A list of possible sogs after the sos restoration.
     """
+    def changeSosInOneDirection(sog, pos, direction, sos, nsquare):
+        for i in range(nsquare+1):
+            row, col = libpos.advance_pos(pos, direction, i)
+            sog[row][col] = sos
+
+    def changeSosInAllDirections(sog, pos, sos, dn):
+        for direction, nsquare in dn.items():
+            changeSosInOneDirection(sog, pos, direction, sos, nsquare)
+
     sidbs = utils.calc_all_sidbs(sog, pos)
+
+    sidbls = []
+    dirkeys = []
+    for key, sidb in sidbs.items():
+        sidbls.append(sidb)
+        dirkeys.append(key)
+
+    ncmbs = [{d: n for d, n in zip(dirkeys, nls)}
+             for nls in itertools.product(*map(
+                 lambda sidb: range(sidb+1),
+                 sidbls
+             ))
+             ][1:]
 
     sog = libsog.duplicate_sog(sog)
     sog[pos[0]][pos[1]] = sos
 
-    isogs, jsogs = [], [sog]
-    for direction, sidb in sidbs.items():
-        isogs, jsogs = jsogs, []
-        # Update isogs.
-        for isog in isogs:
-            # The number of disks restored is from 0 to <sidb>.
-            for ndisk in range(0, sidb+1):
-                jsog = libsog.duplicate_sog(isog)
-                jsogs.append(jsog)
-                # Restore sog.
-                for i in range(0, ndisk+1):
-                    row, col = libpos.advance_pos(pos, direction, i)
-                    jsog[row][col] = sos
+    prev_sogs = []
+    for ncmb in ncmbs:
+        prev_sog = libsog.duplicate_sog(sog)
+        prev_sogs.append(prev_sog)
+        changeSosInAllDirections(prev_sog, pos, sos, ncmb)
 
-    # The first sog is the same as sog before restoration, which is the
-    # result of choosing no restoration for all the directions.
-    return jsogs[1:]
+    return prev_sogs
