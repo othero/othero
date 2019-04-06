@@ -32,6 +32,20 @@ def is_sos_restore_valid(sog, pos):
 
 def calc_sogs_after_sos_restored(sog, pos, sos):
     """
+     Restore sos at the <pos> to <sos> and calculate the resulting
+    possible sogs according to the osero rule.
+
+    Args: 
+        sog [[othero.core.SOS]]:
+
+        pos (int, int):
+
+        sos othero.core.SOS:
+            Sos which the square is to be restored to.
+
+    Returns:
+        [[[othero.core.SOS]]]:
+            A list of possible sogs after the sos restoration.
     """
     def changeSosInOneDirection(sog, pos, direction, sos, nsquare):
         for i in range(nsquare+1):
