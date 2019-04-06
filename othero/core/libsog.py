@@ -153,7 +153,7 @@ class SOG:
         game so that it can be passed to another program.
 
         Args:
-            sog [[othero.core.libtypes.SOS]]:
+            sog othero.core.libsog.SOG:
                 State of a game to be converted.
         
         Returns:
@@ -175,7 +175,7 @@ class SOG:
         of this program.
 
         Args:
-            sog [[othero.core.libtypes.SOS]]:
+            sog othero.core.libsog.SOG:
                 Sog to be initialized.
 
             s string:

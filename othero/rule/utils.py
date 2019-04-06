@@ -17,6 +17,16 @@ SID:
     The number of SID means:
         0: no disk will be reversed
         n: n disks will be reversed
+
+SIDB:
+    SIDB is a number representing up to how many disks can be restored along with
+    a restoration of the state of the square at a certain position.
+
+    SIDB is calculated in each direction relative to the restored square.
+
+    The number of SIDB means:
+        0: no disk will be restored
+        n: up to n disks will be restored
 """
 
 def calc_sid(sog, pos, sos, direction):
@@ -97,3 +107,60 @@ def calc_all_sids(sog, pos, sos):
     for d in list(libtypes.Direction):
         sids[d] = calc_sid(sog, pos, sos, d)
     return sids
+
+def calc_sidb(sog, pos, direction):
+    """
+    Calculate SIDB in the direction specified by <direction>.
+
+    Args: 
+        sog othero.core.libsog.SOG:
+
+        pos (int, int):
+
+        direction othero.core.Direction:
+
+    Returns:
+        int:
+            State in the direction of <direction>.
+    """
+    sos = sog.getSos(pos)
+    if sos == libtypes.SOS.BLANK:
+        return 0
+
+    sidb = 0 
+    while True:
+        pos = libpos.advance_pos(pos, direction)
+
+        if not sog.isInside(pos):
+            break
+
+        s = sog.getSos(pos)
+        if s == sos:
+            sidb += 1
+        else:
+            break
+
+    if sidb != 0:
+        sidb -= 1
+
+    return sidb
+
+def calc_all_sidbs(sog, pos):
+    """
+    Returns a map of 8 numbers representing SID in each direction.
+    SID in a direction can be accessed with the corresponding direction
+    constant.
+
+    Args:
+        sog othero.core.libsog.SOG:
+
+        pos (int, int):
+
+    Returns:
+        {othero.core.Direction: int}: 
+            State in each direction.
+    """
+    sidbs = {}
+    for d in list(libtypes.Direction):
+        sidbs[d] = calc_sidb(sog, pos, d)
+    return sidbs
