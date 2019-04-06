@@ -56,8 +56,12 @@ class TestCoreSog(unittest.TestCase):
             self.__SOG_STR
         )
 
-    def test_string_to_sog(self):
-        self.assertEqual(
-            libsog.string_to_sog(self.__SOG_STR),
-            self.__SOG
-        )
+    def test_init_sog_from_string(self):
+        sog = [
+            [None, None, None, None],
+            [None, None, None, None],
+            [None, None, None, None],
+            [None, None, None, None]
+        ]
+        libsog.init_sog_from_string(sog, self.__SOG_STR)
+        self.assertEqual(sog, self.__SOG)

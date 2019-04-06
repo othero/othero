@@ -91,21 +91,27 @@ def sog_to_string(sog):
         s = s + "," + str(p)
     return s[1:]
 
-def string_to_sog(s):
+def init_sog_from_string(sog, s):
     """
-    Convert string to state of a game.
+    Initialize <sog> with <s>.
 
     This method is intended to be used to deserialize state of a
     game passed from another program so that it can be used inside
     of this program.
 
     Args:
+        sog [[othero.core.libtypes.SOS]]:
+            Sog to be initialized.
+
         s string:
             String to be converted.
-    
-    Returns:
-        [[othero.core.libtypes.SOS]]:
-            Resulting sos from <s>.
     """
     ps = list(map(int, s.split(',')))
-    return [[ps[i+j*4] for i in range(4)] for j in range(4)]
+    i = 0
+    for row in range(len(sog)):
+        for col in range(len(sog[row])):
+            if i < len(ps):
+                sog[row][col] = ps[i]
+            else:
+                sog[row][col] = None
+            i += 1
