@@ -32,7 +32,7 @@ def is_sos_restore_valid(sog, pos):
 
 def calc_sogs_after_sos_restored(sog, pos, sos):
     """
-     Restore sos at the <pos> to <sos> and calculate the resulting
+    Restore sos at the <pos> to <sos> and calculate the resulting
     possible sogs according to the osero rule.
 
     Args: 
