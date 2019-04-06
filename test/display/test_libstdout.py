@@ -7,14 +7,14 @@
 
 import unittest
 
-from test.testutils import Test1
+from test.testutils import Test3
 
 from othero.core import libtypes
 from othero.display import libstdout
 
 class TestDisplayStdout(unittest.TestCase):
     def test_display_sog_to_shell(self):
-        libstdout.display_sog_to_shell(Test1.SOG)
+        libstdout.display_sog_to_shell(Test3.SOG)
 
 if __name__ == "__main__":
     unittest.main()
