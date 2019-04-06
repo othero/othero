@@ -15,6 +15,7 @@ def visualize_sos(sos):
     DARK : 'x'
     LIGHT: 'o'
     BLANK: ' '
+    None : '-'
 
     Args:
         sos othero.core.libtypes.SOS:
@@ -28,8 +29,10 @@ def visualize_sos(sos):
         return 'x'
     elif sos == libtypes.SOS.LIGHT:
         return 'o'
-    else:
+    elif sos == libtypes.SOS.BLANK:
         return ' '
+    else:
+        return '-'
 
 def visualize_sog(sog):
     """
@@ -44,4 +47,3 @@ def visualize_sog(sog):
             Resulting list from <sog>.
     """
     return [[visualize_sos(sos) for sos in row] for row in sog.getSosss()]
-
