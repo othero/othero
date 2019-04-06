@@ -24,7 +24,7 @@ def calc_sid(sog, pos, sos, direction):
     Calculate SID in the direction specified by <direction>.
 
     Args: 
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of the game.
 
         pos (int, int):
@@ -50,11 +50,11 @@ def calc_sid(sog, pos, sos, direction):
     while True:
         pos = libpos.advance_pos(pos, direction)
 
-        if not libsog.is_pos_inside_sog(sog, pos):
+        if not sog.isInside(pos):
             sid = 0
             break
             
-        s = sog[pos[0]][pos[1]]
+        s = sog.getSos(pos)
         if s == libtypes.SOS.BLANK:
             sid = 0
             break
@@ -72,7 +72,7 @@ def calc_all_sids(sog, pos, sos):
     constant.
 
     Args: 
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of the game.
 
         pos (int, int):

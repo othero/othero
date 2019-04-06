@@ -12,7 +12,7 @@ def display_sog_to_shell(sog):
     Display othero.core.libtypes.SOG to the shell.
 
     Args:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             Sog to display.
 
     Returns:

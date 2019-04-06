@@ -5,16 +5,28 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import libboard, libsog, libtypes
+from othero.core import libsog, libtypes
 from othero.rule import libforward
 from othero.display import utils
 
-INIT_SOG = [ \
-    [libtypes.SOS.BLANK , libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK], \
-    [libtypes.SOS.BLANK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK], \
-    [libtypes.SOS.BLANK , libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK], \
-    [libtypes.SOS.BLANK , libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK] \
+INIT_SOSSS = [
+    [libtypes.SOS.BLANK , libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK],
+    [libtypes.SOS.BLANK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK],
+    [libtypes.SOS.BLANK , libtypes.SOS.LIGHT, libtypes.SOS.DARK , libtypes.SOS.BLANK],
+    [libtypes.SOS.BLANK , libtypes.SOS.BLANK, libtypes.SOS.BLANK, libtypes.SOS.BLANK]
 ]
+
+DARKS = [(1, 1), (2, 2)]
+LIGHTS = [(1, 2), (2, 1)]
+
+STENCIL = [
+    [True, True, True, True],
+    [True, True, True, True],
+    [True, True, True, True],
+    [True, True, True, True]
+]
+
+INIT_SOG = libsog.SOG(STENCIL, DARKS, LIGHTS)
 
 class InvalidDiskColorError(Exception):
     def __init__(self, disk):
@@ -70,7 +82,7 @@ class Game():
         return len(avail_poss) != 0
 
     def countDisks(self):
-        ndark, nlight, _ = libboard.count_soss(self.sog)
+        ndark, nlight, _ = self.sog.countSoss()
         return ndark, nlight
 
 def create_sog():
@@ -78,10 +90,10 @@ def create_sog():
     Create a new sog in the initial state.
 
     Returns:
-        [[othero.core.libtypes.SOS]]:
+        othero.core.libsog.SOG:
             The newly created sog in the initial state.
     """
-    return libsog.duplicate_sog(INIT_SOG)
+    return INIT_SOG.duplicate()
 
 def is_put_disk_valid(sog, pos, disk):
     """
@@ -89,7 +101,7 @@ def is_put_disk_valid(sog, pos, disk):
     osero rule.
 
     Args:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of a game to be converted.
 
         pos (int, int):
@@ -113,7 +125,7 @@ def calc_sog_after_put_disk(sog, pos, disk):
     to the osero rule.
     
     Args: 
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             State of the game.
     
         pos (int, int):
@@ -126,7 +138,7 @@ def calc_sog_after_put_disk(sog, pos, disk):
             The disk to be put.
     
     Returns:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             Return the new state of the game after <disk> is put.
     
     Errors:
@@ -145,7 +157,7 @@ def get_available_positions(sog, disk):
     Return a list of positions in <sog> where putting <disk> is allowed.
 
     Args:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             Sog to be searched in. 
         
         disk othero.core.libtypes.Disk:
@@ -157,6 +169,6 @@ def get_available_positions(sog, disk):
     """
     sos = libtypes.Disk.toSOS(disk)
 
-    blank_poss = libboard.get_positions_in_sos(sog, libtypes.SOS.BLANK)
+    blank_poss = sog.getPositionsInSos(libtypes.SOS.BLANK)
     return [pos for pos in blank_poss \
                 if libforward.is_sos_change_valid(sog, pos, sos)]

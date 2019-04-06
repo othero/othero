@@ -7,19 +7,14 @@
 
 import unittest
 
+from test.testutils import Test1
+
 from othero.core import libtypes
 from othero.display import libstdout
 
 class TestDisplayStdout(unittest.TestCase):
-    __SOG = [ \
-        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK]   \
-    ]
-
     def test_display_sog_to_shell(self):
-        libstdout.display_sog_to_shell(self.__SOG)
+        libstdout.display_sog_to_shell(Test1.SOG)
 
 if __name__ == "__main__":
     unittest.main()

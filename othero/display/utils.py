@@ -36,12 +36,12 @@ def visualize_sog(sog):
     Convert sog to a two-dimentional list of the visible symbols.
 
     Args:
-        sog [[othero.core.libtypes.SOS]]:
+        sog othero.core.libsog.SOG:
             Sog to be converted.
 
     Returns:
         [[str]]:
             Resulting list from <sog>.
     """
-    return [[visualize_sos(sos) for sos in row] for row in sog]
+    return [[visualize_sos(sos) for sos in row] for row in sog.getSosss()]
 

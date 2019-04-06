@@ -7,61 +7,66 @@
 
 import unittest
 
+from test.testutils import Test2
+
 from othero.core import libsog, libtypes
 
-class TestCoreSog(unittest.TestCase):
-    __SOG = [ \
-        [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.DARK ,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.BLANK,], \
-        [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.BLANK] \
-    ]
-
+class TestCoreSogSOG(unittest.TestCase):
     __SOG_STR = \
         "0,1,-1,1," + \
-        "1,-1,0,0," + \
-        "1,-1,0,0," + \
+        "1,0," + \
+        "1,0," + \
         "1,1,1,0"
 
-    def test_duplicate_sog(self):
-        sog2 = libsog.duplicate_sog(self.__SOG)
-        self.assertEqual(
-            sog2,
-            self.__SOG
-        )
-        self.assertFalse(
-            id(sog2) == id(self.__SOG))
+    def test_duplicate(self):
+        sog2 = Test2.SOG.duplicate()
+        self.assertEqual(sog2, Test2.SOG)
+        sog2.setSos((1, 3), libtypes.SOS.LIGHT)
+        self.assertNotEqual(sog2, Test2.SOG)
 
-    def test_get_sos_at_pos(self):
+    def test_getSos(self):
         self.assertEqual(
-            libsog.get_sos_at_pos(self.__SOG, (1, 2)),
+            Test2.SOG.getSos((1, 3)),
             libtypes.SOS.BLANK
         )
 
-    def test_is_pos_inside_sog1(self):
+    def test_isInside1(self):
         self.assertEqual(
-            libsog.is_pos_inside_sog(self.__SOG, (1, 2)),
+            Test2.SOG.isInside((1, 3)),
             True
         )
 
-    def test_is_pos_inside_sog2(self):
+    def test_isInside2(self):
         self.assertEqual(
-            libsog.is_pos_inside_sog(self.__SOG, (4, 0)),
+            Test2.SOG.isInside((4, 0)),
             False
         )
 
-    def test_sog_to_string(self):
+    def test_isInside3(self):
         self.assertEqual(
-            libsog.sog_to_string(self.__SOG),
+            Test2.SOG.isInside((1, 2)),
+            False
+        )
+
+    def test_countSoss(self):
+        self.assertEqual(
+            Test2.SOG.countSoss(),
+            (7, 1, 4)
+        )
+
+    def test_getPositionsInSos(self):
+        self.assertEqual(
+            Test2.SOG.getPositionsInSos(libtypes.SOS.BLANK),
+            [(0, 0), (1, 3), (2, 3), (3, 3)]
+        )
+
+    def test_toString(self):
+        self.assertEqual(
+            Test2.SOG.toString(),
             self.__SOG_STR
         )
 
-    def test_init_sog_from_string(self):
-        sog = [
-            [None, None, None, None],
-            [None, None, None, None],
-            [None, None, None, None],
-            [None, None, None, None]
-        ]
-        libsog.init_sog_from_string(sog, self.__SOG_STR)
-        self.assertEqual(sog, self.__SOG)
+    def test_initFromString(self):
+        sog = libsog.SOG(Test2.STENCIL)
+        sog.initFromString(self.__SOG_STR)
+        self.assertEqual(sog, Test2.SOG)
