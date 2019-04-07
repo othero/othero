@@ -39,11 +39,5 @@ class TestGameUtils(unittest.TestCase):
             False
         )
 
-    def test_get_available_positions(self):
-        self.assertEqual(
-            utils.get_available_positions(Test1.SOG, libtypes.Disk.DARK),
-            [(1, 2), (2, 2)]
-        )
-
 class TestGameUtilsGame(unittest.TestCase):
     pass

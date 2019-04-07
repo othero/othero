@@ -30,6 +30,25 @@ class TestCoreSogSOG(unittest.TestCase):
             libtypes.SOS.BLANK
         )
 
+    def test_create_sog(self):
+        _STENCIL = [
+            [True, True, True, True],
+            [True, True, True, True],
+            [True, True, True, True],
+            [True, True, True, True]
+        ]
+        _DARKS = [(1, 1), (2, 2)]
+        _LIGHTS = [(1, 2), (2, 1)]
+        _DEFAULT_SOG = libsog.SOG(_STENCIL, _DARKS, _LIGHTS)
+        self.assertEqual(
+            libsog.create_sog(),
+            _DEFAULT_SOG
+        )
+        self.assertNotEqual(
+            id(libsog.create_sog()),
+            id(_DEFAULT_SOG)
+        )
+
     def test_isInside1(self):
         self.assertEqual(
             Test2.SOG.isInside((1, 3)),

@@ -5,6 +5,8 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
+from othero.core import libtypes
+
 """ NOTE
 SOG:
     SOG is a two-dimentional array. The first dimention indicates a
@@ -194,3 +196,23 @@ class SOG:
                     self.__sosss[row][col] = None
 
                 i += 1
+
+_STENCIL = [
+    [True, True, True, True],
+    [True, True, True, True],
+    [True, True, True, True],
+    [True, True, True, True]
+]
+_DARKS = [(1, 1), (2, 2)]
+_LIGHTS = [(1, 2), (2, 1)]
+_DEFAULT_SOG = SOG(_STENCIL, _DARKS, _LIGHTS)
+
+def create_sog():
+    """
+    Return a new sog in the shape of 4x4. Some disks are already set.
+
+    Returns:
+        othero.core.libsog.SOG:
+    
+    """
+    return _DEFAULT_SOG.duplicate()
