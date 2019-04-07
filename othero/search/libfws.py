@@ -58,6 +58,22 @@ class FwsNode:
 
     @staticmethod
     def create(tree, prev_node, cur_sog, prev_disk):
+        """
+        Create a new FwsNode instance and return it.
+
+        Args:
+            tree othero.search.libfws.FwsTree:
+                The tree which a new node belongs to.
+
+            prev_node othero.search.libfws.FwsNode:
+                The parent node of a new node.
+            
+            cur_sog othero.core.libsog.SOG:
+                The sog which a new node contains.
+
+        Returns:
+            othero.search.libfws.FwsNode:
+        """
         node = FwsNode()
         node.setParams(tree, prev_node, cur_sog, prev_disk)
         node.initialize()
@@ -65,9 +81,33 @@ class FwsNode:
 
     @staticmethod
     def delete(tree, node):
+        """
+        This method is reserved to be used in derived classes.
+
+        This is called when a node is no longer used and can be released.
+
+        Args:
+            tree othero.search.libfws.FwsTree:
+                The tree which the <node> belongs to.
+            
+            node othero.search.libfws.FwsNode:
+                The node to be deleted.
+        """
         pass
 
     def setParams(self, tree, prev_node, cur_sog, prev_disk):
+        """
+        Initialize instance variables with given parameters.
+
+        Args:
+            tree othero.search.libfws.FwsTree:
+            
+            prev_node othero.search.libfws.FwsNode:
+
+            cur_sog othero.core.libsog.SOG:
+
+            prev_disk othero.core.libtypes.Disk:
+        """
         self.cur_sog = cur_sog
         self.next_nodes = None 
         self.prev_node = prev_node
@@ -79,9 +119,19 @@ class FwsNode:
         self.__mark = {}
 
     def initialize(self):
+        """
+        Calculate the inner state of the node.
+        """
         self.__search_nexts()
 
     def expand(self):
+        """
+        Create nodes for all the possible sogs in the next turn. Once a
+        node gets no longer to be used, it should be shrinked to reduce the
+        memory usage.
+
+        The new nodes are stores in <self>.<next_nodes>.
+        """
         if self.next_nodes == None:
             if self.__next_sogs == None:
                 self.__search_nexts()
@@ -91,20 +141,49 @@ class FwsNode:
             ]
 
     def shrink(self):
+        """
+        Release the nodes in <self>.<next_nodes>. This method should be called
+        after expand is called.
+        """
         for node in self.next_nodes:
             self.delete(self.tree, node)
         self.next_nodes = None
         self.__next_sogs = None
 
     def addMark(self, key, value):
+        """
+        Add a key value pair to the node. The added value can be retrieved by
+        getMark with the key.
+
+        Args:
+            key string:
+            
+            value *:
+        """
         self.__mark[key] = value
 
     def getMark(self, key):
+        """
+        Get the value which are related to <key>.
+
+        Args:
+            key string:
+        
+        Returns:
+            *:
+                The value related to <key>.
+        """
         if key not in self.__mark.keys():
             return None
         return self.__mark[key]
 
     def delMark(self, key):
+        """
+        Delete the key value pair which was added to the node.
+
+        Args:
+            key string:
+        """
         if key in self.__mark.keys():
             del self.__mark[key]
 
@@ -137,33 +216,86 @@ class FwsCrawler:
         self.__cur_node = start_node
 
     def duplicate(self):
+        """
+        Duplicate oneself and return the copy.
+
+        This method is intended to be used when the search need to procede
+        in a concurrent manner.
+        
+        Returns:
+            othero.search.libfws.FwsCrawler:
+        """
         return FwsCrawler(self.__my_disk, self.__cur_node)
 
     # nid: node number
     def advance(self, nid):
+        """
+        Advance to one of the next nodes along with the search tree.
+        As more than one nodes exist in the next turn, which node the
+        crawler goes to is specified by <nid>.
+
+        Args:
+            nid int:
+                The index pointing into <self>.<__cur_node>.<next_nodes>.
+        """
         self.__cur_node = self.__cur_node.next_nodes[nid]
 
     def retreat(self):
+        """
+        Retreat to the previous node.
+        """
         self.__cur_node = self.__cur_node.prev_node
 
     def expandNode(self):
+        """
+        Make the current node expand for further search.
+        """
         self.__cur_node.expand()
         return len(self.__cur_node.next_nodes)
 
     def shrinkNode(self):
+        """
+        Make the current node shrink for memory optimization.
+        """
         self.__cur_node.shrink()
 
     def storeMark(self, key, value):
+        """
+        Store the key value pair in the current node.
+
+        Args:
+            key string:
+
+            value *:
+        """
         self.__cur_node.addMark(key, value)
 
     def loadMark(self, key):
+        """
+        Load the value related to <key> from the current node.
+
+        Args:
+            key string:
+
+        Returns:
+            value *:
+        """
         return self.__cur_node.getMark(key)
 
     def hasReachedLeaf(self):
+        """
+        Return if the current node is a leaf, that is, if the game is over.
+        """
         return self.__cur_node.isLeaf
 
     # DTW := destined to winning
     def calcIsDtw(self):
+        """
+        Calculate if the player with <self>.<__my_disk> is destined to win.
+
+        Returns:
+            bool:
+        """
         cache = self.loadMark(FwsNode.ReservedKeys.IS_DTW)
         if cache is not None:
             return cache
@@ -189,7 +321,59 @@ class FwsCrawler:
             return all(dtws)
 
     def storeIsDtw(self):
+        """
+        Store the result of calcIsDtw in the current node.
+        """
         self.storeMark(FwsNode.ReservedKeys.IS_DTW, self.calcIsDtw())
 
     def loadIsDtw(self):
+        """
+        Load the result of calcIsDtw in the current node.
+
+        Returns:
+            bool:
+                isDtw of the current node.
+        """
         return self.loadMark(FwsNode.ReservedKeys.IS_DTW)
+
+def run(crawler):
+    """
+    Execute depth first search for the procedure by which the player with <crawler>.<__mydisk>
+    never fails to win. The search is conducted by recursive calls of this function.
+
+    Args:
+        crawler othero.search.libfws.Crawler:
+    """
+    if crawler.hasReachedLeaf():
+        crawler.storeIsDtw()
+        return
+
+    nnode = crawler.expandNode()
+    for i in range(nnode):
+        crawler.advance(i)
+        run(crawler)
+        crawler.storeIsDtw()
+        crawler.retreat()
+    crawler.storeIsDtw()
+    crawler.shrinkNode()
+
+def calc_is_dtw(sog, my_disk, first_disk=libtypes.Disk.DARK):
+    """
+    Return if the player with <my_disk> never fails to win.
+
+    Args:
+        sog othero.core.libsog.SOG:
+            The sog with which the search begins.
+
+        my_disk othero.core.libtypes.Disk:
+
+        first_disk othero.core.libtypes.Disk:
+            The disk which is put at first.
+    
+    Returns:
+        bool:
+    """
+    tree = FwsTree(sog, first_disk)
+    crawler = FwsCrawler(my_disk, tree.root)
+    run(crawler)
+    return crawler.calcIsDtw()

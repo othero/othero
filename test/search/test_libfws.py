@@ -61,6 +61,34 @@ class TestSearchFws(unittest.TestCase):
             [] 
         )
 
+    def test_calc_is_dtw1(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT]
+        ]
+        self.assertFalse(libfws.calc_is_dtw(sog, libtypes.Disk.DARK, libtypes.Disk.DARK))
+
+    def test_calc_is_dtw2(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK]
+        ]
+        self.assertTrue(libfws.calc_is_dtw(sog, libtypes.Disk.DARK, libtypes.Disk.DARK))
+
+    def test_calc_is_dtw3(self):
+        sog = [
+            [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.LIGHT],
+            [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT, libtypes.SOS.BLANK]
+        ]
+        self.assertFalse(libfws.calc_is_dtw(sog, libtypes.Disk.LIGHT, libtypes.Disk.DARK))
+
+
 class TestSearchFwsFwsNode(unittest.TestCase):
     __SOG = [
         [libtypes.SOS.BLANK, libtypes.SOS.DARK , libtypes.SOS.BLANK, libtypes.SOS.DARK ],
