@@ -5,7 +5,7 @@
 # This source code is licensed under the MIT License found in
 # the LICENSE file in the root directory of this source tree.
 
-from othero.core import libdisk, libsog, libtypes
+from othero.core import libtypes, libsog, libdisk
 from othero.search import libfws
 
 class FwsNodeManager:
@@ -126,8 +126,5 @@ def calc_is_dtw_with_manager(sog, my_disk, first_disk=libtypes.Disk.DARK):
     """
     tree = FwsTreeWithManager(sog, 100, 10, first_disk)
     crawler = libfws.FwsCrawler(my_disk, tree.root)
-    libfws.run(crawler)
+    crawler.run()
     return crawler.calcIsDtw()
-
-if __name__ == "__main__":
-    print(libfws.calc_is_dtw(libsog.create_sog(), libtypes.Disk.LIGHT))

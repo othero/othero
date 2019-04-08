@@ -9,7 +9,7 @@ import unittest
 
 from test import testutils
 
-from othero import fws
+from othero import fwsnm
 from othero.core import libtypes
 from othero.search import libfws
 
@@ -21,7 +21,7 @@ class TestFws(unittest.TestCase):
             [libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.BLANK, libtypes.SOS.LIGHT],
             [libtypes.SOS.DARK , libtypes.SOS.DARK , libtypes.SOS.LIGHT, libtypes.SOS.LIGHT]
         ])
-        self.assertFalse(fws.calc_is_dtw_with_manager(SOG, libtypes.Disk.DARK, libtypes.Disk.DARK))
+        self.assertFalse(fwsnm.calc_is_dtw_with_manager(SOG, libtypes.Disk.DARK, libtypes.Disk.DARK))
 
 class TestFwsFwsNodeWithManager(unittest.TestCase):
     __SOG = testutils.sosss_to_sog([
@@ -32,7 +32,7 @@ class TestFwsFwsNodeWithManager(unittest.TestCase):
     ])
 
     def test_create(self):
-        tree = fws.FwsTreeWithManager(self.__SOG, 100)
+        tree = fwsnm.FwsTreeWithManager(self.__SOG, 100)
         node = libfws.FwsNode.create(tree, tree.root, self.__SOG, libtypes.Disk.LIGHT)
         self.assertEqual(node.cur_sog, self.__SOG)
         self.assertEqual(node.prev_node, tree.root)
@@ -51,7 +51,7 @@ class TestFwsFwsNodeWithManager(unittest.TestCase):
             return all([a in y for a in x]) \
                     and all([a in x for a in y])
 
-        tree = fws.FwsTreeWithManager(self.__SOG, 100)
+        tree = fwsnm.FwsTreeWithManager(self.__SOG, 100)
         node = libfws.FwsNode.create(tree, tree.root, self.__SOG, libtypes.Disk.LIGHT)
         node.expand()
         self.assertIsNotNone(node.next_nodes)
@@ -61,7 +61,7 @@ class TestFwsFwsNodeWithManager(unittest.TestCase):
         ))
 
     def test_shrink(self):
-        tree = fws.FwsTreeWithManager(self.__SOG, 100)
+        tree = fwsnm.FwsTreeWithManager(self.__SOG, 100)
         node = libfws.FwsNode.create(tree, tree.root, self.__SOG, libtypes.Disk.LIGHT)
         node.expand()
         node.shrink()
