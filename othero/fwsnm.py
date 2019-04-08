@@ -9,7 +9,8 @@ from othero.core import libtypes, libsog, libdisk
 from othero.search import libfws
 
 class FwsNodeManager:
-    def __init__(self, size, ninc=10):
+    def __init__(self, cls, size, ninc=10):
+        self.__cls = cls
         self.__stack = self.__newNodes(size)
         self.__size = size
         self.__ninc = ninc
@@ -58,7 +59,7 @@ class FwsNodeManager:
 
     def __newNodes(self, nnode):
         return [
-            FwsNodeWithManager()
+            self.__cls()
             for _ in range(nnode)
         ]
 
@@ -104,7 +105,7 @@ class FwsNodeWithManager(libfws.FwsNode):
 
 class FwsTreeWithManager(libfws.FwsTree):
     def __init__(self, sog, stack_size, stack_ninc=10, first_disk=libtypes.Disk.DARK):
-        self.fwsnm = FwsNodeManager(stack_size, stack_ninc)
+        self.fwsnm = FwsNodeManager(FwsNodeWithManager, stack_size, stack_ninc)
         self.root = FwsNodeWithManager.create(self, None, sog, libdisk.prev_disk(first_disk))
 
 def calc_is_dtw_with_manager(sog, my_disk, first_disk=libtypes.Disk.DARK):
