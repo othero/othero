@@ -56,8 +56,8 @@ class FwsNode:
     class ReservedKeys(enum.Enum):
         IS_DTW = "isDtw"
 
-    @staticmethod
-    def create(tree, prev_node, cur_sog, prev_disk):
+    @classmethod
+    def create(cls, tree, prev_node, cur_sog, prev_disk):
         """
         Create a new FwsNode instance and return it.
 
@@ -74,13 +74,13 @@ class FwsNode:
         Returns:
             othero.search.libfws.FwsNode:
         """
-        node = FwsNode()
+        node = cls()
         node.setParams(tree, prev_node, cur_sog, prev_disk)
         node.initialize()
         return node
 
-    @staticmethod
-    def delete(tree, node):
+    @classmethod
+    def delete(cls, tree, node):
         """
         This method is reserved to be used in derived classes.
 
@@ -225,7 +225,7 @@ class FwsCrawler:
         Returns:
             othero.search.libfws.FwsCrawler:
         """
-        return FwsCrawler(self.__my_disk, self.__cur_node)
+        return type(self)(self.__my_disk, self.__cur_node)
 
     # nid: node number
     def advance(self, nid):
@@ -336,26 +336,23 @@ class FwsCrawler:
         """
         return self.loadMark(FwsNode.ReservedKeys.IS_DTW)
 
-def run(crawler):
-    """
-    Execute depth first search for the procedure by which the player with <crawler>.<__mydisk>
-    never fails to win. The search is conducted by recursive calls of this function.
+    def run(self):
+        """
+        Execute depth first search for the procedure by which the player with <self>.<__mydisk>
+        never fails to win. The search is conducted by recursive calls of this function.
+        """
+        if self.hasReachedLeaf():
+            self.storeIsDtw()
+            return
 
-    Args:
-        crawler othero.search.libfws.Crawler:
-    """
-    if crawler.hasReachedLeaf():
-        crawler.storeIsDtw()
-        return
-
-    nnode = crawler.expandNode()
-    for i in range(nnode):
-        crawler.advance(i)
-        run(crawler)
-        crawler.storeIsDtw()
-        crawler.retreat()
-    crawler.storeIsDtw()
-    crawler.shrinkNode()
+        nnode = self.expandNode()
+        for i in range(nnode):
+            self.advance(i)
+            self.run()
+            self.storeIsDtw()
+            self.retreat()
+        self.storeIsDtw()
+        self.shrinkNode()
 
 def calc_is_dtw(sog, my_disk, first_disk=libtypes.Disk.DARK):
     """
@@ -375,5 +372,5 @@ def calc_is_dtw(sog, my_disk, first_disk=libtypes.Disk.DARK):
     """
     tree = FwsTree(sog, first_disk)
     crawler = FwsCrawler(my_disk, tree.root)
-    run(crawler)
+    crawler.run()
     return crawler.calcIsDtw()

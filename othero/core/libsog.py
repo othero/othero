@@ -40,7 +40,7 @@ class SOG:
             othero.core.libsog.SOG:
 
         """
-        new_sog = SOG(self.__stencil)
+        new_sog = type(self)(self.__stencil)
         new_sog.__sosss = [
             [sos for sos in row]
             for row in self.__sosss

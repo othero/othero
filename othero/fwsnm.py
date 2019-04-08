@@ -63,8 +63,8 @@ class FwsNodeManager:
         ]
 
 class FwsNodeWithManager(libfws.FwsNode):
-    @staticmethod
-    def create(tree, prev_node, cur_sog, prev_disk):
+    @classmethod
+    def create(cls, tree, prev_node, cur_sog, prev_disk):
         """
         Create a new FwsNodeWithManager instance and return it. The instance is
         allocated by <tree>.<fwsnm> manager.
@@ -87,8 +87,8 @@ class FwsNodeWithManager(libfws.FwsNode):
         node.initialize()
         return node
 
-    @staticmethod
-    def delete(tree, node):
+    @classmethod
+    def delete(cls, tree, node):
         """
         Free an allocated node. The node need to have been allocated by
         <tree>.<fwsnm>.
