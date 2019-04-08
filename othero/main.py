@@ -9,8 +9,9 @@ import time
 
 from othero.core import libtypes
 
-from othero.core import libsog
-from othero.search import libfws
+from othero.v2 import libfws, libsog
+# from othero.core import libsog
+# from othero.search import libfws
 
 def stopwatch(func):
     def wrapper(*args, **kwargs):
@@ -22,7 +23,7 @@ def stopwatch(func):
 
 @stopwatch
 def main():
-    pass
+    print(libfws.calc_is_dtw(libsog.create_sog(), libtypes.Disk.LIGHT))
 
 if __name__ == "__main__":
     main()
